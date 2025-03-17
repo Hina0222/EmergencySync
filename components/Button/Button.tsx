@@ -10,18 +10,18 @@ interface ButtonPropsType {
 
 export default function Button({ onPress, children, isActive }: ButtonPropsType) {
 	return (
-		<TouchableOpacity
-			activeOpacity={0.9}
+		<Pressable
 			onPress={onPress}
 			disabled={!isActive}
-			style={[
+			style={({ pressed }) => [
 				styles.button,
-				!isActive && styles.inactiveButton
+				!isActive && styles.inactiveButton,
+				pressed && styles.pressed
 			]}
 		>
 			<Text style={[styles.text, !isActive && styles.inactiveText]}>
 				{children}
 			</Text>
-		</TouchableOpacity>
+		</Pressable>
 	);
 }

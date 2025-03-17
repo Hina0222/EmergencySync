@@ -2,12 +2,10 @@ import { StyleSheet } from "react-native";
 import { theme } from "../../styles/theme";
 
 export const styles = StyleSheet.create({
-	row: {
-		flexDirection: "row"
-	},
 	container: {
 		flexDirection: "row",
 		alignItems: "center",
+		alignSelf: "flex-start",
 		gap: 4
 	},
 	checkbox: {

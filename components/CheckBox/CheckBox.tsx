@@ -1,13 +1,13 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { styles } from "./CheckBox.styles";
 import CheckIcon from "../../assets/icons/CheckIcon.svg";
 
 interface CheckBoxPropsType {
-	children: ReactNode;
+	label: string;
 }
 
-export default function CheckBox({ children }: CheckBoxPropsType) {
+export default function CheckBox({ label }: CheckBoxPropsType) {
 	// 데이터 넘기는 거 반영해야함
 	const [checked, setChecked] = useState<boolean>(true);
 
@@ -16,13 +16,11 @@ export default function CheckBox({ children }: CheckBoxPropsType) {
 	};
 
 	return (
-		<View style={styles.row}>
-			<TouchableOpacity onPress={toggleCheck} activeOpacity={1} style={styles.container}>
-				<View style={[styles.checkbox, checked && styles.checked]}>
-					{checked && <CheckIcon />}
-				</View>
-				<Text style={styles.text}>{children}</Text>
-			</TouchableOpacity>
-		</View>
+		<TouchableOpacity onPress={toggleCheck} activeOpacity={1} style={styles.container}>
+			<View style={[styles.checkbox, checked && styles.checked]}>
+				{checked && <CheckIcon />}
+			</View>
+			<Text style={styles.text}>{label}</Text>
+		</TouchableOpacity>
 	);
 }

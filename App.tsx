@@ -1,13 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import CheckBox from "./components/CheckBox/CheckBox";
 import Button from "./components/Button/Button";
+import Typography from "./components/Typography/Typography";
+import Chip from "./components/Chip/Chip";
+import SearchBar from "./components/SearchBar/SearchBar";
+import { useState } from "react";
 
 export default function App() {
+	const [test, setTest] = useState("");
+
 	return (
 		<>
 			<StatusBar style="auto" />
-			<Button onPress={()=>{}} isActive={true}>조회하기</Button>
-			<CheckBox>전체확인</CheckBox>
+			<Button onPress={() => {
+			}} isActive={true}>조회하기</Button>
+			<CheckBox label="전체 확인" />
+			<Typography color="green10" size="T2_bold">폰트확인</Typography>
+			<Chip label="text" onClose={() => {
+			}} />
+			<Chip label="text" />
+			<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
 		</>
 	);
 }

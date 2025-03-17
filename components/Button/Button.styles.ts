@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
 	inactiveButton: {
 		backgroundColor: theme.neutral90
 	},
+	pressed: {
+		backgroundColor: theme.primary30
+	},
 	text: {
 		textAlign: "center",
 		fontSize: 20,
