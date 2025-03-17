@@ -1,4 +1,6 @@
 export const theme = {
+	white: "#FFFFFF",
+
 	primary95: "#EFF0FF",
 	primary90: "#DBE1FF",
 	primary80: "#B4C5FF",
