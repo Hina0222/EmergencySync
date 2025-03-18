@@ -5,12 +5,15 @@ import Typography from "./components/Typography/Typography";
 import Chip from "./components/Chip/Chip";
 import SearchBar from "./components/SearchBar/SearchBar";
 import { useState } from "react";
+import DropdownBox from "./components/DropdownBox/DropdownBox";
+import { ITEMS_MOCK } from "./mock";
+import { View } from "react-native";
 
 export default function App() {
 	const [test, setTest] = useState("");
 
 	return (
-		<>
+		<View style={{padding:10}}>
 			<StatusBar style="auto" />
 			<Button onPress={() => {
 			}} isActive={true}>조회하기</Button>
@@ -20,6 +23,7 @@ export default function App() {
 			}} />
 			<Chip label="text" />
 			<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
-		</>
+			<DropdownBox placeholder="text" items={ITEMS_MOCK} />
+		</View>
 	);
 }
