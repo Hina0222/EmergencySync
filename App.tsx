@@ -8,9 +8,17 @@ import { useState } from "react";
 import DropdownBox from "./components/DropdownBox/DropdownBox";
 import { ITEMS_MOCK } from "./mock";
 import { View } from "react-native";
+import { useFonts } from "expo-font";
 
 export default function App() {
 	const [test, setTest] = useState("");
+	const [fontsLoaded] = useFonts({
+		"Pretendard": require("./assets/fonts/PretendardGOVVariable.ttf")
+	});
+
+	if (!fontsLoaded) {
+		return null;
+	}
 
 	return (
 		<View style={{ padding: 10 }}>
