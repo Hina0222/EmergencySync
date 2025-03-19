@@ -4,18 +4,18 @@ import { styles } from "./Chip.styles";
 
 interface ChipPropsType {
 	label: string;
-	onClose?: () => void;
+	onDelete?: () => void;
 }
 
-export default function Chip({ label, onClose }: ChipPropsType) {
+export default function Chip({ label, onDelete }: ChipPropsType) {
 	return (
 		<Pressable
-			onPress={onClose}
+			onPress={onDelete}
 			style={styles.container}
 		>
 			<Text style={styles.text}>{label}</Text>
-			{onClose && (
-				<Pressable onPress={onClose}>
+			{onDelete && (
+				<Pressable onPress={onDelete}>
 					<CloseIcon />
 				</Pressable>
 			)}

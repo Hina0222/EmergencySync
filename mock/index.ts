@@ -1,4 +1,4 @@
-export const ITEMS_MOCK = [
+export const ITEMS_MOCK: { id: number; content: string }[] = [
 	{ id: 1, content: "재관류중재술" },
 	{ id: 2, content: "뇌출혈수술" },
 	{ id: 3, content: "대동맥응급" },

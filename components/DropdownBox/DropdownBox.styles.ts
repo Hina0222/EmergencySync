@@ -12,6 +12,14 @@ export const styles = StyleSheet.create({
 		borderColor: theme.neutral70,
 		alignItems: "center"
 	},
+	itemsDropdownBox: {
+		paddingHorizontal: 14,
+		paddingVertical: 12,
+		alignItems: "flex-start"
+	},
+	itemsDropdownBoxIcon: {
+		marginTop: 5
+	},
 	showDropdownBox: {
 		borderBottomWidth: 0,
 		borderBottomLeftRadius: 0,
@@ -25,10 +33,16 @@ export const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: "600",
 		lineHeight: 24,
-		color: theme.neutral10
+		color: theme.neutral70
 	},
 	inactiveText: {
 		color: theme.neutral30
+	},
+	items: {
+		flex: 1,
+		flexDirection: "row",
+		flexWrap: "wrap",
+		gap: 8
 	},
 	itemContainer: {
 		paddingHorizontal: 14,
