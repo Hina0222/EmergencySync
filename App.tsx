@@ -7,8 +7,9 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import { useState } from "react";
 import DropdownBox from "./components/DropdownBox/DropdownBox";
 import { ITEMS_MOCK } from "./mock";
-import { View } from "react-native";
+import { View, SafeAreaView, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
+import Constants from 'expo-constants';
 
 export default function App() {
 	const [test, setTest] = useState("");
@@ -21,16 +22,30 @@ export default function App() {
 	}
 
 	return (
-		<View style={{ padding: 10 }}>
+		<SafeAreaView style={styles.container}>
 			<StatusBar style="auto" />
-			<Button onPress={() => {
-			}} isActive={true}>조회하기</Button>
-			<Typography color="green10" size="T2_bold">폰트확인</Typography>
-			<Chip label="text" onDelete={() => {
-			}} />
-			<Chip label="text" />
-			<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
-			<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />
-		</View>
+			<View style={styles.content}>
+				<Button onPress={() => {
+				}} isActive={true}>조회하기</Button>
+				<Typography color="green10" size="T2_bold">폰트확인</Typography>
+				<Chip label="text" onDelete={() => {
+				}} />
+				<Chip label="text" />
+				<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
+				<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />
+			</View>
+		</SafeAreaView>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingTop: Constants.statusBarHeight,
+		backgroundColor: '#ffffff',
+	},
+	content: {
+		flex: 1,
+		padding: 10,
+	},
+});
