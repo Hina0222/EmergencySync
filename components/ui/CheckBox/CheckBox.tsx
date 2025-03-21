@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./CheckBox.styles";
-import CheckIcon from "../../assets/icons/CheckIcon.svg";
+import CheckIcon from "../../../assets/icons/CheckIcon.svg";
 
 interface CheckBoxPropsType {
 	item: { id: number; content: string };

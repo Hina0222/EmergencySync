@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { Text } from "react-native";
-import { Color } from "../../types/color";
-import { theme } from "../../styles/theme";
+import { Color } from "../../../types/color";
+import { theme } from "../../../styles/theme";
 import { styles } from "./Typography.styles";
 
 type TypographyType =

@@ -1,5 +1,5 @@
 import { Pressable, Text } from "react-native";
-import CloseIcon from "../../assets/icons/CloseIcon.svg";
+import CloseIcon from "../../../assets/icons/CloseIcon.svg";
 import { styles } from "./Chip.styles";
 
 interface ChipPropsType {

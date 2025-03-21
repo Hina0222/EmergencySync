@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { TextInput, View } from "react-native";
 import { styles } from "./SearchBar.styles";
-import { theme } from "../../styles/theme";
-import SearchIcon from "../../assets/icons/SearchIcon.svg";
+import { theme } from "../../../styles/theme";
+import SearchIcon from "../../../assets/icons/SearchIcon.svg";
 
 interface SearchBarPropsType {
 	value: string;

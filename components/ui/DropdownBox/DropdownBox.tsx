@@ -2,7 +2,7 @@ import { Pressable, Text, View } from "react-native";
 import { useState } from "react";
 import { styles } from "./DropdownBox.styles";
 import CheckBox from "../CheckBox/CheckBox";
-import DownArrowIcon from "../../assets/icons/DownArrowIcon.svg";
+import DownArrowIcon from "../../../assets/icons/DownArrowIcon.svg";
 import Chip from "../Chip/Chip";
 
 interface DropdownBoxPropsType {
