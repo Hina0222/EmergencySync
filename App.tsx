@@ -13,6 +13,8 @@ import Constants from "expo-constants";
 import SidebarButton from "./components/ui/Sidebar/components/SidebarButton/SidebarButton";
 import { theme } from "./styles/theme";
 import Sidebar from "./components/ui/Sidebar/Sidebar";
+import WebView from "react-native-webview";
+import KakaoMap from "./screens/KakaoMap/KakaoMap";
 
 export default function App() {
 	const [test, setTest] = useState("");
@@ -27,16 +29,17 @@ export default function App() {
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar style="auto" />
-			<Sidebar>
-				<Button onPress={() => {
-				}} isActive={true}>조회하기</Button>
-				<Typography color="green10" size="T2_bold">폰트확인</Typography>
-				<Chip label="text" onDelete={() => {
-				}} />
-				<Chip label="text" />
-				<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
-				<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />
-			</Sidebar>
+			<KakaoMap />
+			{/*<Sidebar>*/}
+			{/*	<Button onPress={() => {*/}
+			{/*	}} isActive={true}>조회하기</Button>*/}
+			{/*	<Typography color="green10" size="T2_bold">폰트확인</Typography>*/}
+			{/*	<Chip label="text" onDelete={() => {*/}
+			{/*	}} />*/}
+			{/*	<Chip label="text" />*/}
+			{/*	<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />*/}
+			{/*	<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />*/}
+			{/*</Sidebar>*/}
 		</SafeAreaView>
 	);
 }
