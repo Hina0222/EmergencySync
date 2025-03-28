@@ -1,5 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-import CheckBox from "./components/ui/CheckBox/CheckBox";
 import Button from "./components/ui/Button/Button";
 import Typography from "./components/ui/Typography/Typography";
 import Chip from "./components/ui/Chip/Chip";
@@ -9,11 +8,7 @@ import DropdownBox from "./components/ui/DropdownBox/DropdownBox";
 import { ITEMS_MOCK } from "./mock";
 import { View, SafeAreaView, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-import Constants from "expo-constants";
-import SidebarButton from "./components/ui/Sidebar/components/SidebarButton/SidebarButton";
-import { theme } from "./styles/theme";
 import Sidebar from "./components/ui/Sidebar/Sidebar";
-import WebView from "react-native-webview";
 import KakaoMap from "./screens/KakaoMap/KakaoMap";
 
 export default function App() {
@@ -30,16 +25,16 @@ export default function App() {
 		<SafeAreaView style={styles.container}>
 			<StatusBar style="auto" />
 			<KakaoMap />
-			{/*<Sidebar>*/}
-			{/*	<Button onPress={() => {*/}
-			{/*	}} isActive={true}>조회하기</Button>*/}
-			{/*	<Typography color="green10" size="T2_bold">폰트확인</Typography>*/}
-			{/*	<Chip label="text" onDelete={() => {*/}
-			{/*	}} />*/}
-			{/*	<Chip label="text" />*/}
-			{/*	<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />*/}
-			{/*	<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />*/}
-			{/*</Sidebar>*/}
+			<Sidebar>
+				<Button onPress={() => {
+				}} isActive={true}>조회하기</Button>
+				<Typography color="green10" size="T2_bold">폰트확인</Typography>
+				<Chip label="text" onDelete={() => {
+				}} />
+				<Chip label="text" />
+				<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
+				<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />
+			</Sidebar>
 		</SafeAreaView>
 	);
 }
@@ -47,6 +42,5 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "black"
 	}
 });

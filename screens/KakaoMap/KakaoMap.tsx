@@ -1,44 +1,44 @@
 import { useRef } from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import WebView from "react-native-webview";
-// import { KAKAO_MAP_HTML } from "./KakaoMapHTML";
 import { styles } from "./KakaoMap.styles";
 
 export default function KakaoMap() {
 	const webViewRef = useRef(null);
 
-	const KAKAO_MAP_HTML = `
-    <!DOCTYPE html>
-    <html lang="ko">
+	const html = `
+<html>
     <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey="></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ec5ecebbfc5d51a7620ae20cba6a8310&libraries=services,clusterer,drawing"></script> 
     </head>
-    <body>
-      <div id="map" style="width:500px; height:500px;"></div>
-      <script>
-        var container = document.getElementById('map');
-        var options = {
-          center: new kakao.maps.LatLng(37.5665, 126.9780),
-          level: 3
-        };
-        var map = new kakao.maps.Map(container, options);
-        var marker = new kakao.maps.Marker({ position: map.getCenter() });
-        marker.setMap(map);
-      </script>
+    <body >
+        <div id="map" style="width:100%;height:100%;"></div>
+        <script type="text/javascript">
+            (function () {
+                const container = document.getElementById('map');
+                const options = { 
+                    center: new kakao.maps.LatLng(33.450701, 126.570667),
+                    level: 3 
+                };
+                
+                const map = new kakao.maps.Map(container, options); 
+                
+                const geocoder = new kakao.maps.services.Geocoder();
+            })();
+        </script>       
     </body>
-    </html>
-  `;
+</html>    
+`;
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<WebView
 				ref={webViewRef}
+				source={{ html: html }}
 				originWhitelist={["*"]}
-				source={{ html: KAKAO_MAP_HTML }}
 				javaScriptEnabled
 			/>
-		</View>
+		</SafeAreaView>
 	);
 }
