@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Text } from "react-native";
+import { Text, TextProps } from "react-native";
 import { Color } from "../../../types/color";
 import { theme } from "../../../styles/theme";
 import { styles } from "./Typography.styles";
@@ -25,18 +25,18 @@ type TypographyType =
 	| "B3_semibold"
 	| "B3_medium";
 
-interface TypographyPropsType {
+interface TypographyPropsType extends TextProps {
 	color: Color;
 	size: TypographyType;
 	children: ReactNode;
 }
 
-export default function Typography({ color, size, children }: TypographyPropsType) {
+export default function Typography({ color, size, children, ...props }: TypographyPropsType) {
 	const Typo = styles[size];
 	const Color = theme[color as Color];
 
 	return (
-		<Text style={[Typo, { color: Color }]}>
+		<Text style={[Typo, { color: Color }]} {...props}>
 			{children}
 		</Text>
 	);

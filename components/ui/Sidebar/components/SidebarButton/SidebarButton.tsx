@@ -2,6 +2,7 @@ import { Pressable, View } from "react-native";
 import { styles } from "./SidebarButton.styles";
 import LeftArrowIcon from "../../../../../assets/icons/LeftArrowIcon.svg";
 import RightArrowIcon from "../../../../../assets/icons/RightArrowIcon.svg";
+import { theme } from "../../../../../styles/theme";
 
 interface SidebarButtonPropsType {
 	isOpen: boolean;
@@ -16,7 +17,7 @@ export default function SidebarButton({ isOpen, onPress }: SidebarButtonPropsTyp
 				onPress={onPress}
 				style={styles.button}
 			>
-				{isOpen ? <RightArrowIcon /> : <LeftArrowIcon />}
+				{isOpen ? <RightArrowIcon color={theme.neutral50} /> : <LeftArrowIcon color={theme.neutral50} />}
 			</Pressable>
 		</View>
 	);
