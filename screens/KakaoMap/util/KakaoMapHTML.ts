@@ -20,13 +20,17 @@ export const KAKAO_MAP_HTML = `
                 
                 map = new kakao.maps.Map(container, options);
                 
-                // 초기화 완료 알림
-                setTimeout(() => {
+                // 지도 타일 로드 완료 이벤트 리스너 등록
+                kakao.maps.event.addListener(map, 'tilesloaded', function() {
+                    // 처음 한 번만 실행되도록 이벤트 리스너 제거
+                    kakao.maps.event.removeListener(map, 'tilesloaded', arguments.callee);
+                    
+                    // 초기화 완료 알림
                     window.ReactNativeWebView.postMessage(JSON.stringify({
                         type: 'MAP_READY',
                         success: true
                     }));
-                }, 1000);
+                });
             }
 
             window.addEventListener('message', function(e) {

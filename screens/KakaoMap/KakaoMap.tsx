@@ -35,19 +35,11 @@ export default function KakaoMap() {
 				{
 					accuracy: Location.Accuracy.High,
 					timeInterval: 5000,
-					distanceInterval: 10
+					distanceInterval: 0
 				},
 				(newLocation) => {
 					console.log("위치 업데이트:", new Date().toLocaleTimeString(), newLocation.coords);
 					setLocation(newLocation);
-
-					// 위치 데이터 만들기 및 지도 이동
-					const locationData: LocationData = {
-						latitude: newLocation.coords.latitude,
-						longitude: newLocation.coords.longitude,
-						name: "현재 위치"
-					};
-					moveToLocation(locationData);
 				}
 			);
 
@@ -62,17 +54,6 @@ export default function KakaoMap() {
 
 			setLocation(initialLocation);
 			console.log("초기 위치:", initialLocation.coords);
-
-			// 위치 데이터 만들기
-			const locationData: LocationData = {
-				latitude: initialLocation.coords.latitude,
-				longitude: initialLocation.coords.longitude,
-				name: "현재 위치"
-			};
-
-			// 지도 이동
-			moveToLocation(locationData);
-
 		} catch (error) {
 			console.error("위치 가져오기 오류:", error);
 			Alert.alert("오류", "위치 정보를 가져오는데 실패했습니다.");
@@ -88,26 +69,18 @@ export default function KakaoMap() {
 		}
 	};
 
-	// 지도를 특정 위치로 이동
-	const moveToLocation = (locationData: LocationData) => {
-		if (webViewRef.current && webViewLoaded) {
-			console.log("위치 데이터 전송:", locationData);
-			webViewRef.current.postMessage(JSON.stringify(locationData));
-		} else {
-			console.log("WebView가 아직 로드되지 않았습니다.");
-		}
-	};
-
-	// WebView 로드 완료 시 저장된 위치로 이동
+	// WebView 로드 완료 시 저장된 위치로 이동, 위치 변경
 	useEffect(() => {
-		if (webViewLoaded && location) {
-			moveToLocation({
+		if (webViewLoaded && location && webViewRef.current) {
+			const locationData: LocationData = {
 				latitude: location.coords.latitude,
 				longitude: location.coords.longitude,
 				name: "현재 위치"
-			});
+			};
+			console.log("위치 데이터 전송:", locationData);
+			webViewRef.current.postMessage(JSON.stringify(locationData));
 		}
-	}, [webViewLoaded]);
+	}, [webViewLoaded, location]);
 
 	// 컴포넌트 마운트 시 위치 권한 및 위치 추적 시작
 	useEffect(() => {
