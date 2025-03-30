@@ -3,8 +3,15 @@ import { theme } from "../../../styles/theme";
 
 export const styles = StyleSheet.create({
 	container: {
+		width: "100%",
 		paddingVertical: 24,
-		gap: 14
+		paddingHorizontal: 24,
+		gap: 14,
+		borderBottomWidth: 0.5,
+		borderColor: theme.neutral70
+	},
+	pressed: {
+		backgroundColor: theme.primary95
 	},
 	title: {
 		flexDirection: "row",
@@ -23,19 +30,5 @@ export const styles = StyleSheet.create({
 	info: {
 		flexDirection: "row",
 		gap: 14
-	},
-	descriptionContainer: {
-		flexDirection: "row",
-		gap: 8,
-		alignItems: "center",
-		width: "100%"
-	},
-	description: {
-		flex: 1,
-		paddingVertical: 6,
-		paddingHorizontal: 8,
-		borderRadius: 8,
-		gap: 8,
-		backgroundColor: theme.neutral95
-	},
+	}
 });

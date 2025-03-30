@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
 	},
 	innerContainer: {
 		flex: 1,
-		paddingHorizontal: 24,
 		paddingTop: Constants.statusBarHeight + 12,
 		backgroundColor: theme.white
 	}

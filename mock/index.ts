@@ -26,8 +26,8 @@ export const HOSPITALS_MOCK = [
 		nowCongestion: 8,
 		maxCongestion: 12,
 		descriptions: [
-			{ descriptionId: 1, description: "[안과] 정규 시간 외 하기 상병 외 진료 불가능 (외상으로 인한 각막, 공막 열상, 각막 천공, 안구 파열)", time: "2025-02-26 00:00:00" },
-			{ descriptionId: 2, description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
+			{ descriptionId: "1", description: "[안과] 정규 시간 외 하기 상병 외 진료 불가능 (외상으로 인한 각막, 공막 열상, 각막 천공, 안구 파열)", time: "2025-02-26 00:00:00" },
+			{ descriptionId: "2", description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
 		]
 	},
 	{
@@ -49,7 +49,7 @@ export const HOSPITALS_MOCK = [
 		nowCongestion: 8,
 		maxCongestion: 12,
 		descriptions: [
-			{ descriptionId: 2, description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
+			{ descriptionId: "3", description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
 		]
 	}
 ];

@@ -1,5 +1,5 @@
 export type Description = {
-	descriptionId: number;
+	descriptionId: string;
 	description: string;
 	time: string;
 }
