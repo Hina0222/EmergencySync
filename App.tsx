@@ -1,19 +1,22 @@
 import { StatusBar } from "expo-status-bar";
-import Button from "./components/ui/Button/Button";
-import Typography from "./components/ui/Typography/Typography";
-import Chip from "./components/ui/Chip/Chip";
 import SearchBar from "./components/ui/SearchBar/SearchBar";
 import { useState } from "react";
-import DropdownBox from "./components/ui/DropdownBox/DropdownBox";
-import { ITEMS_MOCK } from "./mock";
 import { View, SafeAreaView, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
+import { enableScreens } from "react-native-screens";
 import Sidebar from "./components/ui/Sidebar/Sidebar";
 import KakaoMap from "./screens/KakaoMap/KakaoMap";
 import HospitalScreen from "./screens/HospitalScreen/HospitalScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { theme } from "./styles/theme";
+import SearchScreen from "./screens/SearchScreen/SearchScreen";
+
+enableScreens();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-	const [test, setTest] = useState("");
+	const [search, setSearch] = useState<string>("");
 	const [fontsLoaded] = useFonts({
 		"Pretendard": require("./assets/fonts/PretendardGOVVariable.ttf")
 	});
@@ -27,15 +30,16 @@ export default function App() {
 			<StatusBar style="auto" />
 			{/*<KakaoMap />*/}
 			<Sidebar>
-				<SearchBar placeholder="병원명 검색" value={test} onChangeText={setTest} />
-				<HospitalScreen />
-				{/*<Button onPress={() => {*/}
-				{/*}} isActive={true}>조회하기</Button>*/}
-				{/*<Typography color="green10" size="T2_bold">폰트확인</Typography>*/}
-				{/*<Chip label="text" onDelete={() => {*/}
-				{/*}} />*/}
-				{/*<Chip label="text" />*/}
-				{/*<DropdownBox placeholder="중증응급질환" items={ITEMS_MOCK} />*/}
+				<SearchBar value={search} onChangeText={setSearch} placeholder="병원명 검색" />
+				<NavigationContainer>
+					<Stack.Navigator screenOptions={{
+						headerShown: false,
+						contentStyle: { backgroundColor: theme.white }
+					}}>
+						<Stack.Screen name="Search" component={SearchScreen} />
+						<Stack.Screen name="HospitalScreen" component={HospitalScreen} />
+					</Stack.Navigator>
+				</NavigationContainer>
 			</Sidebar>
 		</SafeAreaView>
 	);

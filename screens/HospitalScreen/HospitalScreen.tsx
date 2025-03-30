@@ -5,11 +5,12 @@ import { HOSPITALS_MOCK } from "../../mock";
 import LeftArrowIcon from "../../assets/icons/LeftArrowIcon.svg";
 import HospitalItem from "./components/HospitalItem";
 
-export default function HospitalScreen() {
+export default function HospitalScreen({ navigation }: any) {
 	return (
 		<View style={styles.container}>
-			<View>
+			<View style={styles.header}>
 				<Pressable onPress={() => {
+					navigation.goBack();
 				}}>
 					<LeftArrowIcon color={theme.black} width={24} height={24} />
 				</Pressable>
