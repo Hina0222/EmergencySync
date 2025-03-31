@@ -1,21 +1,19 @@
 import { Pressable, View } from "react-native";
-import { Hospital } from "../../../types/hospital";
+import { Hospital } from "../../../../types/hospital";
 import { styles } from "./HospitalItem.styles";
-import Typography from "../../../components/ui/Typography/Typography";
-import PhoneIcon from "../../../assets/icons/PhoneIcon.svg";
-import Description from "./Description";
+import Typography from "../../../../components/ui/Typography/Typography";
+import PhoneIcon from "../../../../assets/icons/PhoneIcon.svg";
+import Description from "../Description/Description";
 
 interface HospitalItemProps {
 	hospital: Hospital;
+	onPress: () => void;
 }
 
-export default function HospitalItem({ hospital }: HospitalItemProps) {
-	// 컴포넌트 분리 고민..
-
+export default function HospitalItem({ hospital, onPress }: HospitalItemProps) {
 	return (
 		<Pressable
-			onPress={() => {
-			}}
+			onPress={onPress}
 			style={({ pressed }) => [styles.container, pressed && styles.pressed]}
 		>
 			<View style={styles.title}>

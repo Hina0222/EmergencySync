@@ -1,8 +1,8 @@
 import { FlatList, Pressable, View } from "react-native";
-import Typography from "../../../components/ui/Typography/Typography";
-import TriangleIcon from "../../../assets/icons/TriangleIcon.svg";
+import Typography from "../../../../components/ui/Typography/Typography";
+import TriangleIcon from "../../../../assets/icons/TriangleIcon.svg";
 import { useState } from "react";
-import { Hospital } from "../../../types/hospital";
+import { Hospital } from "../../../../types/hospital";
 import { styles } from "./Description.styles";
 
 interface DescriptionProps {

@@ -6,7 +6,7 @@ import DropdownBox from "../../components/ui/DropdownBox/DropdownBox";
 import { ITEMS_MOCK } from "../../mock";
 import Button from "../../components/ui/Button/Button";
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }: any) {
 	return (
 		<View style={styles.container}>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -35,8 +35,11 @@ export default function SearchScreen() {
 					<DropdownBox placeholder="장비정보" items={ITEMS_MOCK} />
 				</View>
 			</ScrollView>
-			<Button onPress={() => {
-			}} isActive={false}>조회하기</Button>
+			<View style={{ paddingTop: 32 }}>
+				<Button onPress={() => {
+					navigation.navigate("HospitalScreen");
+				}} isActive={true}>조회하기</Button>
+			</View>
 		</View>
 	);
 }
