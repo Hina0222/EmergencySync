@@ -1,10 +1,11 @@
 import { useRef, useEffect, useState } from "react";
-import { SafeAreaView, View, Alert } from "react-native";
+import { SafeAreaView, View, Alert, Button } from "react-native";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
 import { styles } from "./KakaoMap.styles";
 import * as Location from "expo-location";
 import { LocationData } from "../../types/map";
 import { KAKAO_MAP_HTML } from "./util/KakaoMapHTML";
+import { getCarDirection } from "../../apis/kakaoMap/getCarDirection";
 
 export default function KakaoMap() {
 	const webViewRef = useRef<WebView>(null);
@@ -83,14 +84,13 @@ export default function KakaoMap() {
 	}, [webViewLoaded, location]);
 
 	// 컴포넌트 마운트 시 위치 권한 및 위치 추적 시작
-	useEffect(() => {
-		startLocationTracking();
-
-		return () => {
-			stopLocationTracking();
-		};
-	}, []);
-
+	// useEffect(() => {
+	// 	startLocationTracking();
+	//
+	// 	return () => {
+	// 		stopLocationTracking();
+	// 	};
+	// }, []);
 
 	const onMessage = (event: WebViewMessageEvent) => {
 		try {
@@ -118,6 +118,21 @@ export default function KakaoMap() {
 		}
 	};
 
+	// 병원 클릭하면 위치 경로 표시하는 함수
+	const clickHospital = async () => {
+		const result = await getCarDirection();
+		sendDrawLinePathMessage(result);
+	};
+
+	const sendDrawLinePathMessage = (data: any) => {
+		webViewRef.current?.postMessage(
+			JSON.stringify({
+				type: "DRAW_LINE_PATH",
+				routes: data.routes
+			})
+		);
+	};
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<WebView
@@ -127,6 +142,7 @@ export default function KakaoMap() {
 				javaScriptEnabled
 				onMessage={onMessage}
 			/>
+			<Button title={"테스트"} onPress={clickHospital} />
 		</SafeAreaView>
 	);
 }
