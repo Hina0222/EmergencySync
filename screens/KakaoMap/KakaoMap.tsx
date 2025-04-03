@@ -79,18 +79,21 @@ export default function KakaoMap() {
 				name: "현재 위치"
 			};
 			console.log("위치 데이터 전송:", locationData);
-			webViewRef.current.postMessage(JSON.stringify(locationData));
+			webViewRef.current.postMessage(JSON.stringify({
+				type: "UPDATE_LOCATION",
+				...locationData
+			}));
 		}
 	}, [webViewLoaded, location]);
 
 	// 컴포넌트 마운트 시 위치 권한 및 위치 추적 시작
-	// useEffect(() => {
-	// 	startLocationTracking();
-	//
-	// 	return () => {
-	// 		stopLocationTracking();
-	// 	};
-	// }, []);
+	useEffect(() => {
+		startLocationTracking();
+
+		return () => {
+			stopLocationTracking();
+		};
+	}, []);
 
 	const onMessage = (event: WebViewMessageEvent) => {
 		try {
@@ -105,7 +108,7 @@ export default function KakaoMap() {
 
 			// 위치 업데이트 완료 메시지 처리
 			if (data.type === "LOCATION_UPDATED") {
-				console.log("위치가 업데이트되었습니다:", data.location);
+				console.log("위치가 업데이트되었습니다:", data);
 			}
 
 			// 오류 메시지 처리
