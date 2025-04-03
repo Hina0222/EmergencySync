@@ -5,9 +5,10 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface SidebarPropsType {
 	children: ReactNode;
+	onOpenChange: (isOpen: boolean) => void;
 }
 
-export default function Sidebar({ children }: SidebarPropsType) {
+export default function Sidebar({ children, onOpenChange }: SidebarPropsType) {
 	const animation = useRef(new Animated.Value(0)).current;
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const [sidebarWidth, setSidebarWidth] = useState<number>(0);
@@ -25,6 +26,10 @@ export default function Sidebar({ children }: SidebarPropsType) {
 			}).start();
 		}
 	}, [isOpen, animation, sidebarWidth]);
+
+	useEffect(() => {
+		onOpenChange(isOpen);
+	}, [isOpen, onOpenChange]);
 
 	const toggleSidebar = () => {
 		setIsOpen(prev => !prev);

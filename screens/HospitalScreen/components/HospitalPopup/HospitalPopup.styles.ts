@@ -5,14 +5,17 @@ export const styles = StyleSheet.create({
 	container: {
 		position: "absolute",
 		bottom: 60,
-		alignSelf: "flex-start",
+		left: "50%",
+		transform: [{ translateX: "-50%" }],
 		paddingVertical: 32,
 		paddingHorizontal: 36,
-		marginHorizontal: "auto",
 		borderRadius: 12,
-		backgroundColor: theme.white
+		backgroundColor: theme.white,
+		gap: 20,
+		zIndex: 10
 	},
 	title: {
+		marginBottom: 12,
 		flexDirection: "row",
 		gap: 12
 	},
@@ -29,5 +32,12 @@ export const styles = StyleSheet.create({
 	info: {
 		flexDirection: "row",
 		gap: 14
+	},
+	time: {
+		alignItems: "center",
+		backgroundColor: theme.red95,
+		paddingVertical: 12,
+		paddingHorizontal: 16,
+		borderRadius: 8
 	}
 });
