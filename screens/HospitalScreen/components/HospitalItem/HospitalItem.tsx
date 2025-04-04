@@ -35,7 +35,7 @@ export default function HospitalItem({ hospital, onPress }: HospitalItemProps) {
 				<Typography color="neutral30" size="T3_semibold">응급실 혼잡도</Typography>
 				<Typography color="neutral10" size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>
 			</View>
-			<Description hospital={hospital}/>
+			<Description hospital={hospital} type="list"/>
 		</Pressable>
 	);
 }

@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 36,
 		borderRadius: 12,
 		backgroundColor: theme.white,
-		gap: 20,
 		zIndex: 10
 	},
 	title: {
@@ -33,11 +32,12 @@ export const styles = StyleSheet.create({
 		flexDirection: "row",
 		gap: 14
 	},
-	time: {
-		alignItems: "center",
-		backgroundColor: theme.red95,
-		paddingVertical: 12,
+	close: {
+		alignSelf: "flex-end",
+		paddingVertical: 8,
 		paddingHorizontal: 16,
+		borderWidth: 1,
+		borderColor: theme.neutral70,
 		borderRadius: 8
 	}
 });

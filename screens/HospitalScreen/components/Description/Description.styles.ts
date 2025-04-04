@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
 		width: "100%"
 	},
 	description: {
+		width: "100%",
 		flex: 1,
 		paddingVertical: 6,
 		paddingHorizontal: 8,
