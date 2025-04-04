@@ -55,38 +55,48 @@ export default function Description({ hospital, type }: DescriptionProps) {
 						}
 					</View>
 					:
-					<View style={[styles.container, { flexDirection: "column" }]}>
-						<View style={styles.description} onLayout={(event) => setContainerWidth(event.nativeEvent.layout.width)}>
-							<FlatList
-								data={hospital.descriptions}
-								keyExtractor={(item) => item.descriptionId}
-								ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-								renderItem={(itemData) => (
-									<View style={{ width: containerWidth }}>
-										<Typography color="neutral20" size="B2_medium">
-											<Typography color="neutral50" size="B2_medium">응급 </Typography>
-											{itemData.item?.description}
-										</Typography>
-										<Typography color="neutral50" size="B2_medium">{itemData.item?.time}</Typography>
-									</View>
-								)}
-								horizontal
-								pagingEnabled
-								showsHorizontalScrollIndicator={false}
-								onScroll={(event) => {
-									const index = Math.round(event.nativeEvent.contentOffset.x / containerWidth);
-									setActiveIndex(index);
-								}}
-								scrollEventThrottle={16}
-							/>
-						</View>
-						<Pagination
-							dotsLength={hospital.descriptions.length}
-							activeDotIndex={activeIndex}
-							containerStyle={{ paddingTop: 8, paddingBottom: 0 }}
-							dotStyle={{ width: 6, height: 6, borderRadius: 5, backgroundColor: theme.primary50 }}
-							inactiveDotStyle={{ width: 10, height: 10, borderRadius: 5, backgroundColor: theme.neutral80 }}
-						/>
+					<View>
+						{
+							hospital.descriptions[0]?.description &&
+							<View style={[styles.container, {
+								flexDirection: "column",
+								marginTop: 20
+							}, hospital.descriptions.length === 1 ? { marginBottom: 14 } : {}]}
+							>
+								<View style={styles.description}
+											onLayout={(event) => setContainerWidth(event.nativeEvent.layout.width)}>
+									<FlatList
+										data={hospital.descriptions}
+										keyExtractor={(item) => item.descriptionId}
+										ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
+										renderItem={(itemData) => (
+											<View style={{ width: containerWidth }}>
+												<Typography color="neutral20" size="B2_medium">
+													<Typography color="neutral50" size="B2_medium">응급 </Typography>
+													{itemData.item?.description}
+												</Typography>
+												<Typography color="neutral50" size="B2_medium">{itemData.item?.time}</Typography>
+											</View>
+										)}
+										horizontal
+										pagingEnabled
+										showsHorizontalScrollIndicator={false}
+										onScroll={(event) => {
+											const index = Math.round(event.nativeEvent.contentOffset.x / containerWidth);
+											setActiveIndex(index);
+										}}
+										scrollEventThrottle={16}
+									/>
+								</View>
+								<Pagination
+									dotsLength={hospital.descriptions.length}
+									activeDotIndex={activeIndex}
+									containerStyle={{ paddingTop: 8, paddingBottom: 0 }}
+									dotStyle={{ width: 6, height: 6, borderRadius: 5, backgroundColor: theme.primary50 }}
+									inactiveDotStyle={{ width: 10, height: 10, borderRadius: 5, backgroundColor: theme.neutral80 }}
+								/>
+							</View>
+						}
 					</View>
 			}
 		</View>
