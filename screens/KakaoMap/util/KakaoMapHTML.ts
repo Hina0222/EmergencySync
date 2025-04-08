@@ -4,7 +4,7 @@ export const KAKAO_MAP_HTML = `
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ec5ecebbfc5d51a7620ae20cba6a8310&libraries=services"></script> 
     </head>
-    <body>
+    <body style="margin:0;">
         <div id="map" style="width:100%;height:100%;"></div>
         <script type="text/javascript">
 						let map;
