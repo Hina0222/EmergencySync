@@ -3,7 +3,7 @@ import { styles } from "./CheckBox.styles";
 import CheckIcon from "../../../assets/icons/CheckIcon.svg";
 
 interface CheckBoxPropsType {
-	item: { id: number; content: string };
+	item: { id: string; content: string };
 	checked: boolean;
 	onToggle: () => void;
 }

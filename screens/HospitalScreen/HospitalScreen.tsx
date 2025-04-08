@@ -4,8 +4,11 @@ import { theme } from "../../styles/theme";
 import { HOSPITALS_MOCK } from "../../mock";
 import LeftArrowIcon from "../../assets/icons/LeftArrowIcon.svg";
 import HospitalItem from "./components/HospitalItem/HospitalItem";
+import { useNavigation } from "@react-navigation/native";
 
-export default function HospitalScreen({ navigation, setSelectedHospital }: any) {
+export default function HospitalScreen({ setSelectedHospital }: any) {
+	const navigation = useNavigation();
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.header}>
@@ -19,7 +22,7 @@ export default function HospitalScreen({ navigation, setSelectedHospital }: any)
 				data={HOSPITALS_MOCK}
 				keyExtractor={(item) => item.id}
 				renderItem={(itemData) => (
-					<HospitalItem hospital={itemData.item} onPress={()=>setSelectedHospital(itemData.item)} />
+					<HospitalItem hospital={itemData.item} onPress={() => setSelectedHospital(itemData.item)} />
 				)}
 			/>
 		</View>
