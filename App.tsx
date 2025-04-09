@@ -18,7 +18,7 @@ import { selectedHospitalAtom } from './store/atoms';
 enableScreens();
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function AppContent() {
 	const [search, setSearch] = useState<string>("");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [selectedHospital, setSelectedHospital] = useAtom(selectedHospitalAtom);
@@ -32,32 +32,38 @@ export default function App() {
 	}
 
 	return (
-		<Provider>
-			<SafeAreaView style={styles.container}>
-				<StatusBar style="auto" />
-				<KakaoMap />
-				{selectedHospital && (
-					<HospitalPopup
-						hospital={selectedHospital}
-						onClose={() => setSelectedHospital(null)}
-						isOpen={isSidebarOpen}
-					/>
-				)}
+		<SafeAreaView style={styles.container}>
+			<StatusBar style="auto" />
+			<KakaoMap />
+			{selectedHospital && (
+				<HospitalPopup
+					hospital={selectedHospital}
+					onClose={() => setSelectedHospital(null)}
+					isOpen={isSidebarOpen}
+				/>
+			)}
 
-				<Sidebar onOpenChange={setIsSidebarOpen}>
-					<SearchBar value={search} onChangeText={setSearch} placeholder="병원명 검색" />
-					<NavigationContainer>
-						<Stack.Navigator screenOptions={{
-							headerShown: false,
-							animation: "none",
-							contentStyle: { backgroundColor: theme.white }
-						}}>
-							<Stack.Screen name="Search" component={SearchScreen} />
-							<Stack.Screen name="HospitalScreen" component={HospitalScreen} />
-						</Stack.Navigator>
-					</NavigationContainer>
-				</Sidebar>
-			</SafeAreaView>
+			<Sidebar onOpenChange={setIsSidebarOpen}>
+				<SearchBar value={search} onChangeText={setSearch} placeholder="병원명 검색" />
+				<NavigationContainer>
+					<Stack.Navigator screenOptions={{
+						headerShown: false,
+						animation: "none",
+						contentStyle: { backgroundColor: theme.white }
+					}}>
+						<Stack.Screen name="Search" component={SearchScreen} />
+						<Stack.Screen name="HospitalScreen" component={HospitalScreen} />
+					</Stack.Navigator>
+				</NavigationContainer>
+			</Sidebar>
+		</SafeAreaView>
+	);
+}
+
+export default function App() {
+	return (
+		<Provider>
+			<AppContent />
 		</Provider>
 	);
 }
