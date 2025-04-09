@@ -15,7 +15,7 @@ interface DropdownBoxPropsType {
 
 export default function DropdownBox({ placeholder, items, selectedItems, toggleItem , deleteItem }: DropdownBoxPropsType) {
 	const [showItems, setShowItems] = useState<boolean>(false);
-	const isActive = true;
+	const isAllSelected = items.length === selectedItems.length;
 
 	const renderItems = () => {
 		return items
@@ -33,26 +33,26 @@ export default function DropdownBox({ placeholder, items, selectedItems, toggleI
 		<>
 			<Pressable
 				onPress={() => setShowItems(prev => !prev)}
-				disabled={!isActive}
+				disabled={isAllSelected}
 				style={[
 					styles.dropdownBox,
-					showItems && styles.showDropdownBox,
-					!isActive && styles.inactiveDropdownBox,
+					(showItems && !isAllSelected) && styles.showDropdownBox,
+					isAllSelected && styles.inactiveDropdownBox,
 					selectedItems.length > 0 && styles.itemsDropdownBox
 				]}
 			>
-				{selectedItems.length > 0 ? (
+				{(selectedItems.length > 0 && !isAllSelected) ? (
 					<View style={styles.items}>{renderItems()}</View>
 				) : (
-					<Text style={[styles.text, !isActive && styles.inactiveText]}>
-						{!isActive && "전체 선택" || placeholder}
+					<Text style={[styles.text, isAllSelected && styles.inactiveText]}>
+						{isAllSelected && "전체 선택" || placeholder}
 					</Text>
 				)}
 				<DownArrowIcon
 					style={selectedItems.length > 0 && styles.itemsDropdownBoxIcon}
 				/>
 			</Pressable>
-			{showItems && (
+			{(showItems && !isAllSelected) && (
 				<View style={[styles.itemContainer, showItems && styles.showItemContainer]}>
 					<View style={styles.line}></View>
 					{items.map((item) => (
