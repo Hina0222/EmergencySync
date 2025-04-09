@@ -9,7 +9,8 @@ export const KAKAO_MAP_HTML = `
         <script type="text/javascript">
 						let map;
 						let currentMarker = null;
-						let polyline = null; // 기존 Polyline을 저장할 변수
+						let hospitalMarker = null;
+						let polyline = null; 
 						const myPositionIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle opacity="0.3" cx="16" cy="16" r="16" fill="#416FEB"/><g filter="url(#filter0_d_1_15)"><circle cx="16" cy="16" r="6" fill="#416FEB"/><circle cx="16" cy="16" r="7.5" stroke="white" stroke-width="3"/></g><defs><filter id="filter0_d_1_15" x="5" y="6" width="26" height="26" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dx="2" dy="3"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.0732452 0 0 0 0 0.0880518 0 0 0 0 0.184294 0 0 0 0.2 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_15"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_15" result="shape"/></filter></defs></svg>';
 						const hospitalPositionIcon = '<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><circle opacity="0.3" cx="22.0469" cy="22.5418" r="22" fill="#59C757"/><g filter="url(#filter0_d_1_7)"><circle cx="22.0469" cy="22.5418" r="9" fill="#0DB431"/><circle cx="22.0469" cy="22.5418" r="10.5" stroke="white" stroke-width="3"/></g><rect x="20.5377" y="18.0418" width="2.925" height="9" rx="1" fill="white"/><rect x="26.5" y="21.0793" width="2.925" height="9" rx="1" transform="rotate(90 26.5 21.0793)" fill="white"/><defs><filter id="filter0_d_1_7" x="8.04688" y="9.54184" width="32" height="32" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dx="2" dy="3"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.0732452 0 0 0 0 0.0880518 0 0 0 0 0.184294 0 0 0 0.2 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_7"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_7" result="shape"/></filter></defs></svg>';
 
@@ -160,10 +161,13 @@ export const KAKAO_MAP_HTML = `
 									const hospitalMarkerImageSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(hospitalPositionIcon);
 									const hospitalMarkerSize = new kakao.maps.Size(44, 44);
 									const hospitalMarkerOption = { offset: new kakao.maps.Point(22, 22) };
-	
 									const hospitalMarkerImage = new kakao.maps.MarkerImage(hospitalMarkerImageSrc, hospitalMarkerSize, hospitalMarkerOption);
+									
+									if (hospitalMarker) {
+										hospitalMarker.setMap(null);
+									}
 	
-									const hospitalMarker = new kakao.maps.Marker({
+									hospitalMarker = new kakao.maps.Marker({
 										position: lastPoint,
 										image: hospitalMarkerImage
 									});

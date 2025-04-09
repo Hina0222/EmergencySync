@@ -2,7 +2,7 @@ export type Description = {
 	descriptionId: string;
 	description: string;
 	time: string;
-}
+};
 
 export interface Hospital {
 	id: string;
@@ -13,4 +13,7 @@ export interface Hospital {
 	nowCongestion: number;
 	maxCongestion: number;
 	descriptions: Description[];
+	longitude?: number;
+	latitude?: number;
+	address?: string;
 }

@@ -1,19 +1,20 @@
 import { useRef, useEffect, useState } from "react";
-import { SafeAreaView, Alert, Button } from "react-native";
+import { SafeAreaView, Alert } from "react-native";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
 import { styles } from "./KakaoMap.styles";
 import * as Location from "expo-location";
 import { LocationData } from "../../types/map";
 import { KAKAO_MAP_HTML } from "./util/KakaoMapHTML";
-import { getCarDirection } from "../../apis/kakaoMap/getCarDirection";
+import { useAtom } from "jotai";
+import { locationAtom, webViewRefAtom } from "../../store/atoms";
 
 export default function KakaoMap() {
 	const webViewRef = useRef<WebView>(null);
 	const locationSubscriptionRef = useRef<Location.LocationSubscription | null>(null);
 
 	const [webViewLoaded, setWebViewLoaded] = useState(false);
-	const [location, setLocation] = useState<Location.LocationObject | null>(null);
-	const [destinationPosition, setDestinationPosition] = useState({ longitude: 127.177677, latitude: 36.831057 });
+	const [location, setLocation] = useAtom(locationAtom);
+	const [_, setWebViewRef] = useAtom(webViewRefAtom);
 
 	// 위치 권한 요청 및 위치 추적 시작
 	const startLocationTracking = async () => {
@@ -92,8 +93,12 @@ export default function KakaoMap() {
 	useEffect(() => {
 		startLocationTracking();
 
+		// webViewRef 전역 상태로 저장
+		setWebViewRef(webViewRef);
+
 		return () => {
 			stopLocationTracking();
+			setWebViewRef(null);
 		};
 	}, []);
 
@@ -123,21 +128,6 @@ export default function KakaoMap() {
 		}
 	};
 
-	// 병원 클릭하면 위치 경로 표시하는 함수
-	const clickHospital = async () => {
-		const result = await getCarDirection(location, destinationPosition);
-		sendDrawLinePathMessage(result);
-	};
-
-	const sendDrawLinePathMessage = (data: any) => {
-		webViewRef.current?.postMessage(
-			JSON.stringify({
-				type: "DRAW_LINE_PATH",
-				routes: data.routes
-			})
-		);
-	};
-
 	return (
 		<SafeAreaView style={styles.container}>
 			<WebView
@@ -147,7 +137,6 @@ export default function KakaoMap() {
 				javaScriptEnabled
 				onMessage={onMessage}
 			/>
-			<Button title={"테스트"} onPress={clickHospital} />
 		</SafeAreaView>
 	);
 }

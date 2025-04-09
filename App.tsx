@@ -12,16 +12,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { theme } from "./styles/theme";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import HospitalPopup from "./screens/HospitalScreen/components/HospitalPopup/HospitalPopup";
-import { Hospital } from "./types/hospital";
+import { Provider, useAtom } from 'jotai';
+import { selectedHospitalAtom } from './store/atoms';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-	// 전역상태 관리로 바꾸는게 나아보인디?
 	const [search, setSearch] = useState<string>("");
-	const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(null); // 선택된 병원 정보 상태
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+	const [selectedHospital, setSelectedHospital] = useAtom(selectedHospitalAtom);
 
 	const [fontsLoaded] = useFonts({
 		"Pretendard": require("./assets/fonts/PretendardGOVVariable.ttf")
@@ -32,33 +32,33 @@ export default function App() {
 	}
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<StatusBar style="auto" />
-			<KakaoMap />
-			{selectedHospital && (
-				<HospitalPopup
-					hospital={selectedHospital}
-					onClose={() => setSelectedHospital(null)}
-					isOpen={isSidebarOpen}
-				/>
-			)}
+		<Provider>
+			<SafeAreaView style={styles.container}>
+				<StatusBar style="auto" />
+				<KakaoMap />
+				{selectedHospital && (
+					<HospitalPopup
+						hospital={selectedHospital}
+						onClose={() => setSelectedHospital(null)}
+						isOpen={isSidebarOpen}
+					/>
+				)}
 
-			<Sidebar onOpenChange={setIsSidebarOpen}>
-				<SearchBar value={search} onChangeText={setSearch} placeholder="병원명 검색" />
-				<NavigationContainer>
-					<Stack.Navigator screenOptions={{
-						headerShown: false,
-						animation: "none",
-						contentStyle: { backgroundColor: theme.white }
-					}}>
-						<Stack.Screen name="Search" component={SearchScreen} />
-						<Stack.Screen name="HospitalScreen">
-							{() => <HospitalScreen setSelectedHospital={setSelectedHospital} />}
-						</Stack.Screen>
-					</Stack.Navigator>
-				</NavigationContainer>
-			</Sidebar>
-		</SafeAreaView>
+				<Sidebar onOpenChange={setIsSidebarOpen}>
+					<SearchBar value={search} onChangeText={setSearch} placeholder="병원명 검색" />
+					<NavigationContainer>
+						<Stack.Navigator screenOptions={{
+							headerShown: false,
+							animation: "none",
+							contentStyle: { backgroundColor: theme.white }
+						}}>
+							<Stack.Screen name="Search" component={SearchScreen} />
+							<Stack.Screen name="HospitalScreen" component={HospitalScreen} />
+						</Stack.Navigator>
+					</NavigationContainer>
+				</Sidebar>
+			</SafeAreaView>
+		</Provider>
 	);
 }
 

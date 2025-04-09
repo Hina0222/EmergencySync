@@ -20,6 +20,8 @@ export const HOSPITALS_MOCK = [
 	{
 		id:"i1",
 		name: "서울적십자병원",
+		latitude: 36.841942,
+		longitude: 127.172339,
 		distance: 1.9,
 		phone: "02-2002-8888",
 		estimate: 8,
@@ -33,6 +35,8 @@ export const HOSPITALS_MOCK = [
 	{
 		id: "i2",
 		name: "강북삼성병원",
+		latitude: 37.1,
+		longitude: 127.1,
 		distance: 2.2,
 		phone: "02-2002-8888",
 		estimate: 8,
@@ -43,6 +47,8 @@ export const HOSPITALS_MOCK = [
 	{
 		id: "i3",
 		name: "세브란스병원",
+		latitude: 36.2,
+		longitude: 127.2,
 		distance: 4.6,
 		phone: "02-2002-8888",
 		estimate: 8,

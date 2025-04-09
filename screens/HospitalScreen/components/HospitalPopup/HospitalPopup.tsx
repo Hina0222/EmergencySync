@@ -49,12 +49,14 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 						<View style={styles.info}>
 							<Typography color="neutral30" size="T3_semibold">응급실 혼잡도</Typography>
 							<Typography color="neutral10"
-													size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>
+								size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>
 						</View>
 						<Description hospital={hospital} type="popup" />
-						<Pressable onPress={onClose} style={styles.close}>
-							<Typography color="neutral10" size="B2_semibold">이송취소</Typography>
-						</Pressable>
+						<View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>
+							<Pressable onPress={onClose} style={styles.close}>
+								<Typography color="neutral10" size="B2_semibold">이송취소</Typography>
+							</Pressable>
+						</View>
 					</View>
 				}
 			</View>
