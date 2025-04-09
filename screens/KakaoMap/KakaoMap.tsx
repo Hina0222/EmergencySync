@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { SafeAreaView, View, Alert, Button } from "react-native";
+import { SafeAreaView, Alert, Button } from "react-native";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
 import { styles } from "./KakaoMap.styles";
 import * as Location from "expo-location";
@@ -13,6 +13,7 @@ export default function KakaoMap() {
 
 	const [webViewLoaded, setWebViewLoaded] = useState(false);
 	const [location, setLocation] = useState<Location.LocationObject | null>(null);
+	const [destinationPosition, setDestinationPosition] = useState({ longitude: 127.177677, latitude: 36.831057 });
 
 	// 위치 권한 요청 및 위치 추적 시작
 	const startLocationTracking = async () => {
@@ -73,6 +74,7 @@ export default function KakaoMap() {
 	// WebView 로드 완료 시 저장된 위치로 이동, 위치 변경
 	useEffect(() => {
 		if (webViewLoaded && location && webViewRef.current) {
+			// 33.450701, 126.570667
 			const locationData: LocationData = {
 				latitude: location.coords.latitude,
 				longitude: location.coords.longitude,
@@ -123,7 +125,7 @@ export default function KakaoMap() {
 
 	// 병원 클릭하면 위치 경로 표시하는 함수
 	const clickHospital = async () => {
-		const result = await getCarDirection();
+		const result = await getCarDirection(location, destinationPosition);
 		sendDrawLinePathMessage(result);
 	};
 

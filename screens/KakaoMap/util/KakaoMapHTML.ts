@@ -10,7 +10,9 @@ export const KAKAO_MAP_HTML = `
 						let map;
 						let currentMarker = null;
 						let polyline = null; // 기존 Polyline을 저장할 변수
-						
+						const myPositionIcon = '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle opacity="0.3" cx="16" cy="16" r="16" fill="#416FEB"/><g filter="url(#filter0_d_1_15)"><circle cx="16" cy="16" r="6" fill="#416FEB"/><circle cx="16" cy="16" r="7.5" stroke="white" stroke-width="3"/></g><defs><filter id="filter0_d_1_15" x="5" y="6" width="26" height="26" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dx="2" dy="3"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.0732452 0 0 0 0 0.0880518 0 0 0 0 0.184294 0 0 0 0.2 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_15"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_15" result="shape"/></filter></defs></svg>';
+						const hospitalPositionIcon = '<svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><circle opacity="0.3" cx="22.0469" cy="22.5418" r="22" fill="#59C757"/><g filter="url(#filter0_d_1_7)"><circle cx="22.0469" cy="22.5418" r="9" fill="#0DB431"/><circle cx="22.0469" cy="22.5418" r="10.5" stroke="white" stroke-width="3"/></g><rect x="20.5377" y="18.0418" width="2.925" height="9" rx="1" fill="white"/><rect x="26.5" y="21.0793" width="2.925" height="9" rx="1" transform="rotate(90 26.5 21.0793)" fill="white"/><defs><filter id="filter0_d_1_7" x="8.04688" y="9.54184" width="32" height="32" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dx="2" dy="3"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0.0732452 0 0 0 0 0.0880518 0 0 0 0 0.184294 0 0 0 0.2 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_7"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_7" result="shape"/></filter></defs></svg>';
+
 						// 지도 초기화
 						function initMap() {
 								const container = document.getElementById('map');
@@ -74,19 +76,16 @@ export const KAKAO_MAP_HTML = `
 								}
 				
 								const newPosition = new kakao.maps.LatLng(data.latitude, data.longitude);
-								map.setCenter(newPosition);
+								map.panTo(newPosition);
 				
 								// 기존 마커 제거
 								if (currentMarker) {
 										currentMarker.setMap(null);
 								}
-				
-								// 커스텀 마커 이미지 생성 (MyLocationIcon.svg 사용)
-								const svgCode = '<svg width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg"><circle opacity="0.3" cx="22.4092" cy="22.5259" r="22" fill="#638AFF"/><circle opacity="0.6" cx="22.4088" cy="22.5259" r="15.4" fill="#416FEB"/><g filter="url(#filter0_d_344_1369)"><path d="M22.7262 14.1202L29.5427 27.6646C29.9145 28.4034 29.2399 29.2415 28.4861 28.9772L22.2265 25.6822C22.0457 25.6188 21.8501 25.6188 21.6693 25.6822L15.41 28.977C14.6562 29.2413 13.9816 28.4035 14.3533 27.6647L21.1696 14.1199C21.5005 13.4626 22.3953 13.4628 22.7262 14.1202Z" fill="white"/></g><defs><filter id="filter0_d_344_1369" x="12.248" y="12.627" width="23.4004" height="23.4" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dx="2" dy="3"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_344_1369"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_344_1369" result="shape"/></filter></defs></svg>';
-								const markerImageSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgCode);
 								
-								const markerSize = new kakao.maps.Size(45, 45);
-								const markerOption = { offset: new kakao.maps.Point(22, 22) };
+								const markerImageSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(myPositionIcon);
+								const markerSize = new kakao.maps.Size(32, 32);
+								const markerOption = { offset: new kakao.maps.Point(16, 16) };
 								
 								const markerImage = new kakao.maps.MarkerImage(markerImageSrc, markerSize, markerOption);
 								
@@ -124,7 +123,8 @@ export const KAKAO_MAP_HTML = `
 				
 								const postLinePath = [];
 								const bounds = new kakao.maps.LatLngBounds();
-				
+								let lastPoint = null;
+								
 								data.routes[0].sections[0].roads.forEach((router) => {
 										router.vertexes.forEach((vertex, index) => {
 												if (index % 2 === 0) {
@@ -134,6 +134,7 @@ export const KAKAO_MAP_HTML = `
 														);
 														postLinePath.push(point);
 														bounds.extend(point); // 지도 범위 확장
+														lastPoint = point;
 												}
 										});
 								});
@@ -153,6 +154,21 @@ export const KAKAO_MAP_HTML = `
 								
 								// 범위 조정 
 								map.setBounds(bounds);
+								
+								// 병원 마커 추가
+								if (lastPoint) {
+									const hospitalMarkerImageSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(hospitalPositionIcon);
+									const hospitalMarkerSize = new kakao.maps.Size(44, 44);
+									const hospitalMarkerOption = { offset: new kakao.maps.Point(22, 22) };
+	
+									const hospitalMarkerImage = new kakao.maps.MarkerImage(hospitalMarkerImageSrc, hospitalMarkerSize, hospitalMarkerOption);
+	
+									const hospitalMarker = new kakao.maps.Marker({
+										position: lastPoint,
+										image: hospitalMarkerImage
+									});
+									hospitalMarker.setMap(map);
+								}
 				
 								// 경로 그리기 완료 알림
 								window.ReactNativeWebView.postMessage(JSON.stringify({
