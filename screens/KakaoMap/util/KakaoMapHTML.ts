@@ -58,6 +58,8 @@ export const KAKAO_MAP_HTML = `
 												updateLocation(data);
 										} else if (data.type === 'DRAW_LINE_PATH') {
 												drawLinePath(data);
+										}else if (data.type === 'CLEAR_LINE_PATH') {
+												clearLinePath();
 										}
 								} catch (error) {
 										console.error('데이터 처리 오류:', error);
@@ -177,6 +179,34 @@ export const KAKAO_MAP_HTML = `
 								// 경로 그리기 완료 알림
 								window.ReactNativeWebView.postMessage(JSON.stringify({
 										type: 'DRAW_LINE_COMPLETED',
+										success: true
+								}));
+						}
+						
+						// 지도에서 경로와 병원 마커 제거 함수
+						function clearLinePath() {
+								if (!map) {
+										console.error('지도가 초기화되지 않음');
+										return;
+								}
+						
+								// 기존 Polyline 제거
+								if (polyline) {
+										polyline.setMap(null);
+										polyline = null;
+								}
+						
+								// 병원 마커 제거
+								if (hospitalMarker) {
+										hospitalMarker.setMap(null);
+										hospitalMarker = null;
+								}
+						
+								console.log('경로 및 병원 마커 제거 완료');
+						
+								// 경로 제거 완료 알림
+								window.ReactNativeWebView.postMessage(JSON.stringify({
+										type: 'LINE_PATH_CLEARED',
 										success: true
 								}));
 						}

@@ -12,8 +12,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { theme } from "./styles/theme";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import HospitalPopup from "./screens/HospitalScreen/components/HospitalPopup/HospitalPopup";
-import { Provider, useAtom } from 'jotai';
-import { selectedHospitalAtom } from './store/atoms';
+import { Provider, useAtom } from "jotai";
+import { selectedHospitalAtom, webViewRefAtom } from "./store/atoms";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -22,6 +22,7 @@ function AppContent() {
 	const [search, setSearch] = useState<string>("");
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [selectedHospital, setSelectedHospital] = useAtom(selectedHospitalAtom);
+	const [webViewRef] = useAtom(webViewRefAtom);
 
 	const [fontsLoaded] = useFonts({
 		"Pretendard": require("./assets/fonts/PretendardGOVVariable.ttf")
@@ -38,7 +39,14 @@ function AppContent() {
 			{selectedHospital && (
 				<HospitalPopup
 					hospital={selectedHospital}
-					onClose={() => setSelectedHospital(null)}
+					onClose={() => {
+						setSelectedHospital(null);
+						webViewRef?.current?.postMessage(
+							JSON.stringify({
+								type: "CLEAR_LINE_PATH"
+							})
+						);
+					}}
 					isOpen={isSidebarOpen}
 				/>
 			)}
