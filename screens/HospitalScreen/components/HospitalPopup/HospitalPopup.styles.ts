@@ -5,13 +5,11 @@ export const styles = StyleSheet.create({
 	container: {
 		position: "absolute",
 		bottom: 60,
-		left: "50%",
-		transform: [{ translateX: "-50%" }],
+		transform: [{ translateX: "50%" }],
 		paddingVertical: 32,
 		paddingHorizontal: 36,
 		borderRadius: 12,
 		backgroundColor: theme.white,
-		zIndex: 10
 	},
 	title: {
 		marginBottom: 12,

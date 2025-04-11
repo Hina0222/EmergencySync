@@ -1,4 +1,4 @@
-import { Pressable, View, Dimensions } from "react-native";
+import { Pressable, View, Dimensions, Animated } from "react-native";
 import { styles } from "./HospitalPopup.styles";
 import Typography from "../../../../components/ui/Typography/Typography";
 import PhoneIcon from "../../../../assets/icons/PhoneIcon.svg";
@@ -6,7 +6,7 @@ import ArrowDownLeftIcon from "../../../../assets/icons/ArrowDownLeftIcon.svg";
 import ArrowUpRightIcon from "../../../../assets/icons/ArrowUpRightIcon.svg";
 import Description from "../Description/Description";
 import { Hospital } from "../../../../types/hospital";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface HospitalPopupProps {
 	hospital: Hospital;
@@ -21,8 +21,18 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 	const centerPosition = (screenWidth - sidebarWidth) / 2;
 	const containerWidth = screenWidth - sidebarWidth;
 
+	const animatedRight = useRef(new Animated.Value(0)).current;
+
+	useEffect(() => {
+		const toValue = isOpen ? centerPosition + sidebarWidth : screenWidth / 2;
+		Animated.timing(animatedRight, {
+			toValue,
+			useNativeDriver: false
+		}).start();
+	}, [isOpen]);
+
 	return (
-		<View style={[styles.container, { width: containerWidth - 200 }, isOpen && { left: centerPosition }]}>
+		<Animated.View style={[styles.container, { width: containerWidth - 200, right: animatedRight }]}>
 			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
 				<View style={styles.title}>
 					<Typography color="neutral10" size="H3">{hospital.name}</Typography>
@@ -49,7 +59,7 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 						<View style={styles.info}>
 							<Typography color="neutral30" size="T3_semibold">응급실 혼잡도</Typography>
 							<Typography color="neutral10"
-								size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>
+													size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>
 						</View>
 						<Description hospital={hospital} type="popup" />
 						<View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>
@@ -60,6 +70,6 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 					</View>
 				}
 			</View>
-		</View>
+		</Animated.View>
 	);
 }
