@@ -38,10 +38,10 @@ export default function KakaoMap() {
 				{
 					accuracy: Location.Accuracy.High,
 					timeInterval: 5000,
-					distanceInterval: 10
+					distanceInterval: 0
 				},
 				(newLocation) => {
-					console.log("위치 업데이트:", new Date().toLocaleTimeString(), newLocation.coords);
+					console.log("위치 업데이트:", new Date().toLocaleTimeString(), newLocation.coords.latitude, newLocation.coords.longitude, newLocation.coords.speed);
 					setLocation(newLocation);
 				}
 			);
