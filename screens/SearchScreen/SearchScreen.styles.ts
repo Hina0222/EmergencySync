@@ -5,7 +5,8 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: "space-between",
 		paddingHorizontal: 24,
-		paddingBottom: 44
+		paddingBottom: 44,
+		marginTop: 40
 	},
 	scrollContainer: {
 		gap: 32

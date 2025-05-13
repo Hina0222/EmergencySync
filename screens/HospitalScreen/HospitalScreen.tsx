@@ -9,12 +9,41 @@ import { useAtom } from "jotai";
 import { selectedHospitalAtom, locationAtom, webViewRefAtom } from "../../store/atoms";
 import { Hospital } from "../../types/hospital";
 import { getCarDirection } from "../../apis/kakaoMap/getCarDirection";
+import { useEffect, useState } from "react";
+import { getHospitalsInfo } from "../../apis/hospital/getHospitalsInfo";
+import { pickHospitalFields } from "../../util";
 
 export default function HospitalScreen() {
 	const navigation = useNavigation();
+	const [hospitalsInfo, setHospitalInfo] = useState<Hospital[]>([]);
 	const [_, setSelectedHospital] = useAtom(selectedHospitalAtom);
 	const [location] = useAtom(locationAtom);
 	const [webViewRef] = useAtom(webViewRefAtom);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const result = await getHospitalsInfo();
+			const filteredHospitals = result.map(pickHospitalFields).map((hospital: any) => {
+				return {
+					...hospital,
+					latitude: hospital.hpid === "A2400002" ? 36.84295215169462 :
+						hospital.hpid === "A2400005" ? 36.775359921186194 :
+							hospital.hpid === "A2400001" ? 36.8023584971179 :
+								hospital.hpid === "A2400012" ? 36.79739687904163 :
+									null,
+					longitude: hospital.hpid === "A2400002" ? 127.17327537305154 :
+						hospital.hpid === "A2400005" ? 127.17992025598447 :
+							hospital.hpid === "A2400001" ? 127.135666806479 :
+								hospital.hpid === "A2400012" ? 127.13157820432319 :
+									null
+				};
+			});
+			console.log(filteredHospitals);
+			setHospitalInfo(filteredHospitals);
+		};
+
+		fetchData();
+	}, []);
 
 	const handleHospitalSelect = async (hospital: Hospital) => {
 		setSelectedHospital(hospital);
@@ -60,8 +89,8 @@ export default function HospitalScreen() {
 				</Pressable>
 			</View>
 			<FlatList
-				data={HOSPITALS_MOCK}
-				keyExtractor={(item) => item.id}
+				data={hospitalsInfo}
+				keyExtractor={(item) => item.hpid}
 				renderItem={(itemData) => (
 					<HospitalItem
 						hospital={itemData.item}

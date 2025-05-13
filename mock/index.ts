@@ -18,16 +18,16 @@ export const ITEMS_MOCK: { id: string; content: string }[] = [
 
 export const HOSPITALS_MOCK = [
 	{
-		id:"i1",
-		name: "서울적십자병원",
-		latitude: 36.841942,
-		longitude: 127.172339,
-		distance: 1.9,
-		phone: "02-2002-8888",
-		estimate: 8,
-		nowCongestion: 8,
-		maxCongestion: 12,
-		descriptions: [
+		id:"1", // A2400002
+		name: "단국대학교의과대학부속병원",
+		latitude: 36.84295215169462,
+		longitude: 127.17327537305154,
+		distance: 1.9, // 처리
+		phone: "041-550-6840",
+		estimate: 8, // 처리
+		nowCongestion: 8, // 처리
+		maxCongestion: 12, // 처리
+		messages: [
 			{ descriptionId: "1", description: "[안과] 정규 시간 외 하기 상병 외 진료 불가능 (외상으로 인한 각막, 공막 열상, 각막 천공, 안구 파열)", time: "2025-02-26 00:00:00" },
 			{ descriptionId: "2", description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
 		]
@@ -42,7 +42,7 @@ export const HOSPITALS_MOCK = [
 		estimate: 8,
 		nowCongestion: 8,
 		maxCongestion: 12,
-		descriptions: []
+		messages: []
 	},
 	{
 		id: "i3",
@@ -54,7 +54,7 @@ export const HOSPITALS_MOCK = [
 		estimate: 8,
 		nowCongestion: 8,
 		maxCongestion: 12,
-		descriptions: [
+		messages: [
 			{ descriptionId: "3", description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
 		]
 	}

@@ -13,6 +13,8 @@ export default function SearchScreen({ navigation }: any) {
 	const serious = useDropdownSelection(ITEMS_MOCK);
 	const equipment = useDropdownSelection(ITEMS_MOCK);
 
+	const isAnyItemSelected = common.selectedItems.length > 0 || serious.selectedItems.length > 0 || equipment.selectedItems.length > 0;
+
 	return (
 		<View style={styles.container}>
 			<ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -79,7 +81,7 @@ export default function SearchScreen({ navigation }: any) {
 					onPress={() => {
 						navigation.navigate("HospitalScreen");
 					}}
-					isActive={true}
+					isActive={isAnyItemSelected}
 				>
 					조회하기
 				</Button>
