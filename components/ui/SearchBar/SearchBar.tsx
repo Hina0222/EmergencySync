@@ -4,25 +4,25 @@ import { styles } from "./SearchBar.styles";
 import { theme } from "../../../styles/theme";
 import SearchIcon from "../../../assets/icons/SearchIcon.svg";
 import Typography from "../Typography/Typography";
+import { useAtom } from "jotai/index";
+import { hospitalsAtom, locationAtom, selectedHospitalAtom, webViewRefAtom } from "../../../store/atoms";
+import { handleHospitalSelect } from "../../../util";
+import { Hospital } from "../../../types/hospital";
 
 interface SearchBarPropsType {
 	value: string;
 	onChangeText: (search: string) => void;
 	placeholder?: string;
-	onSelect?: (hpid: string) => void;
 }
 
-const hospitals = [
-	{ hpid: "A2400002", dutyName: "abcd" },
-	{ hpid: "A2400005", dutyName: "충청남도천안의료원" },
-	{ hpid: "A2400001", dutyName: "학교법인동은학원순천향대학교부속천안병원" },
-	{ hpid: "A2400012", dutyName: "의료법인영서의료재단천안충무병원" }
-];
-
-export default function SearchBar({ value, onChangeText, placeholder, onSelect }: SearchBarPropsType) {
+export default function SearchBar({ value, onChangeText, placeholder }: SearchBarPropsType) {
 	const [focused, setFocused] = useState(false);
+	const [_, setSelectedHospital] = useAtom(selectedHospitalAtom);
+	const [webViewRef] = useAtom(webViewRefAtom);
+	const [location] = useAtom(locationAtom);
+	const [hospitals] = useAtom(hospitalsAtom);
 
-	const filteredHospitals = hospitals.filter((hospital) =>
+	const filteredHospitals = (hospitals ?? []).filter((hospital) =>
 		hospital.dutyName.toLowerCase().includes(value.toLowerCase())
 	);
 
@@ -53,7 +53,7 @@ export default function SearchBar({ value, onChangeText, placeholder, onSelect }
 								onPress={() => {
 									onChangeText(item.dutyName);
 									setFocused(false);
-									onSelect?.(item.hpid);
+									handleHospitalSelect(item as Hospital, location, setSelectedHospital, webViewRef);
 								}}
 								style={({ pressed }) => [
 									styles.listItem,

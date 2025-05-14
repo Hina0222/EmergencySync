@@ -9,3 +9,5 @@ export const locationAtom = atom<Location.LocationObject | null>(null);
 export const selectedHospitalAtom = atom<Hospital | null>(null);
 
 export const webViewRefAtom = atom<RefObject<WebView> | null>(null);
+
+export const hospitalsAtom = atom<Hospital[] | null>(null);

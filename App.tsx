@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import SearchBar from "./components/ui/SearchBar/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, SafeAreaView, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import { enableScreens } from "react-native-screens";
@@ -13,7 +13,9 @@ import { theme } from "./styles/theme";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import HospitalPopup from "./screens/HospitalScreen/components/HospitalPopup/HospitalPopup";
 import { Provider, useAtom } from "jotai";
-import { selectedHospitalAtom, webViewRefAtom } from "./store/atoms";
+import { hospitalsAtom, selectedHospitalAtom, webViewRefAtom } from "./store/atoms";
+import { getHospitalsInfo } from "./apis/hospital/getHospitalsInfo";
+import { pickHospitalFields } from "./util";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -23,10 +25,22 @@ function AppContent() {
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [selectedHospital, setSelectedHospital] = useAtom(selectedHospitalAtom);
 	const [webViewRef] = useAtom(webViewRefAtom);
+	const [_, setHospitals] = useAtom(hospitalsAtom);
 
 	const [fontsLoaded] = useFonts({
 		"Pretendard": require("./assets/fonts/PretendardGOVVariable.ttf")
 	});
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const result = await getHospitalsInfo();
+			const filteredHospitals = result.map(pickHospitalFields);
+			console.log(filteredHospitals);
+			setHospitals(filteredHospitals);
+		};
+
+		fetchData();
+	}, []);
 
 	if (!fontsLoaded) {
 		return null;

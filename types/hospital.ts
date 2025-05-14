@@ -27,7 +27,7 @@ export interface Hospital {
 	// nowCongestion: number;
 	// maxCongestion: number;
 	messages: Description[];
-	longitude?: number;
-	latitude?: number;
+	wgs84Lon?: string;
+	wgs84Lat?: string;
 	// address?: string;
 }
