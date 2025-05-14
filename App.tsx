@@ -13,9 +13,10 @@ import { theme } from "./styles/theme";
 import SearchScreen from "./screens/SearchScreen/SearchScreen";
 import HospitalPopup from "./screens/HospitalScreen/components/HospitalPopup/HospitalPopup";
 import { Provider, useAtom } from "jotai";
-import { hospitalsAtom, selectedHospitalAtom, webViewRefAtom } from "./store/atoms";
+import { hospitalsAtom, locationAtom, selectedHospitalAtom, webViewRefAtom } from "./store/atoms";
 import { getHospitalsInfo } from "./apis/hospital/getHospitalsInfo";
 import { pickHospitalFields } from "./util";
+import { getCarDirection } from "./apis/kakaoMap/getCarDirection";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ function AppContent() {
 	const [selectedHospital, setSelectedHospital] = useAtom(selectedHospitalAtom);
 	const [webViewRef] = useAtom(webViewRefAtom);
 	const [_, setHospitals] = useAtom(hospitalsAtom);
+	const [location, setLocation] = useAtom(locationAtom);
 
 	const [fontsLoaded] = useFonts({
 		"Pretendard": require("./assets/fonts/PretendardGOVVariable.ttf")
@@ -33,14 +35,47 @@ function AppContent() {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			if (!location) return;
+
 			const result = await getHospitalsInfo();
 			const filteredHospitals = result.map(pickHospitalFields);
-			console.log(filteredHospitals);
-			setHospitals(filteredHospitals);
+
+			const hospitalsWithDistance = await Promise.all(
+				filteredHospitals.map(async (hospital: any) => {
+					if (!hospital.wgs84Lon || !hospital.wgs84Lat) return hospital;
+
+					try {
+						const destinationPosition = {
+							longitude: hospital.wgs84Lon,
+							latitude: hospital.wgs84Lat
+						};
+
+						const directionResult = await getCarDirection(location, destinationPosition);
+
+						const distance = directionResult.routes[0].summary?.distance ?? 0;
+						const duration = directionResult.routes[0].summary?.duration ?? 0;
+
+						const distanceKm = (distance / 1000).toFixed(1);
+						const estimateMin = Math.ceil(duration / 60);
+
+						return {
+							...hospital,
+							distance: distanceKm,
+							estimate: estimateMin
+						};
+					} catch (e) {
+						console.error("경로 계산 실패:", e);
+						return hospital;
+					}
+				})
+			);
+
+			setHospitals(hospitalsWithDistance);
 		};
 
 		fetchData();
-	}, []);
+		console.log("다시 실행");
+	}, [location]);
 
 	if (!fontsLoaded) {
 		return null;

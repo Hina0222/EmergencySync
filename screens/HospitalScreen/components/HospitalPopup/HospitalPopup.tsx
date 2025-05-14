@@ -35,11 +35,11 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 		<Animated.View style={[styles.container, { width: containerWidth - 200, right: animatedRight }]}>
 			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
 				<View style={styles.title}>
-					<Typography color="neutral10" size="H3">{hospital.name}</Typography>
+					<Typography color="neutral10" size="H3">{hospital.dutyName}</Typography>
 					<Typography color="neutral50" size="T1">{hospital.distance}km</Typography>
 					<View style={styles.phone}>
 						<PhoneIcon />
-						<Typography color="green20" size="T4_medium">{hospital.phone}</Typography>
+						<Typography color="green20" size="T4_medium">{hospital.dutyTel3}</Typography>
 					</View>
 				</View>
 				<Pressable onPress={() => {
@@ -58,8 +58,7 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 					<View>
 						<View style={styles.info}>
 							<Typography color="neutral30" size="T3_semibold">응급실 혼잡도</Typography>
-							<Typography color="neutral10"
-													size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>
+							{/*<Typography color="neutral10" size="T3_semibold">{hospital.nowCongestion}/{hospital.maxCongestion}</Typography>*/}
 						</View>
 						<Description hospital={hospital} type="popup" />
 						<View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 10 }}>

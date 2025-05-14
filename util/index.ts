@@ -16,7 +16,7 @@ export function formatDate(dateStr: string): string {
 }
 
 const hospitalKeys: (keyof Hospital)[] = [
-	"hpid", "dutyName", "dutyTel3", "messages","wgs84Lon","wgs84Lat"
+	"hpid", "dutyName", "dutyTel3", "messages", "wgs84Lon", "wgs84Lat"
 ];
 
 export function pickHospitalFields(data: any): Hospital {
@@ -31,7 +31,7 @@ export const handleHospitalSelect = async (
 	hospital: Hospital,
 	location: Location.LocationObject | null,
 	setSelectedHospital: (hospital: Hospital) => void,
-	webViewRef: MutableRefObject<any> | null
+	webViewRef: MutableRefObject<any> | null,
 ) => {
 	setSelectedHospital(hospital);
 
@@ -48,7 +48,7 @@ export const handleHospitalSelect = async (
 	try {
 		const destinationPosition = {
 			longitude: hospital.wgs84Lon,
-			latitude: hospital.wgs84Lat,
+			latitude: hospital.wgs84Lat
 		};
 
 		const result = await getCarDirection(location, destinationPosition);
@@ -56,7 +56,7 @@ export const handleHospitalSelect = async (
 		webViewRef?.current?.postMessage(
 			JSON.stringify({
 				type: "DRAW_LINE_PATH",
-				routes: result.routes,
+				routes: result.routes
 			})
 		);
 	} catch (error) {

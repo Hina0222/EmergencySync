@@ -21,13 +21,10 @@ export type Description = {
 export interface Hospital {
 	hpid: string;
 	dutyName: string;
-	// distance: number;
 	dutyTel3: string;
-	// estimate: number;
-	// nowCongestion: number;
-	// maxCongestion: number;
 	messages: Description[];
 	wgs84Lon?: string;
 	wgs84Lat?: string;
-	// address?: string;
+	distance?: string;
+	estimate?: number;
 }
