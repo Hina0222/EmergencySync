@@ -62,11 +62,7 @@ export default function Description({ hospital, type }: DescriptionProps) {
 					<View>
 						{
 							messages.length > 0 && hospital.messages[0]?.symBlkMsg &&
-							<View style={[styles.container, {
-								flexDirection: "column",
-								marginTop: 20
-							}, hospital.messages.length === 1 ? { marginBottom: 14 } : {}]}
-							>
+							<View style={[styles.container, { flexDirection: "column", marginTop: 20 }, hospital.messages.length === 1 ? { marginBottom: 14 } : {}]}>
 								<View style={styles.description}
 											onLayout={(event) => setContainerWidth(event.nativeEvent.layout.width)}>
 									<FlatList
@@ -74,7 +70,7 @@ export default function Description({ hospital, type }: DescriptionProps) {
 										keyExtractor={(_, index) => index.toString()}
 										ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
 										renderItem={(itemData) => (
-											<View style={{ width: containerWidth }}>
+											<View style={{ width: containerWidth - 16 }}>
 												<Typography color="neutral20" size="B2_medium">
 													<Typography color="neutral50" size="B2_medium">응급 </Typography>
 													{itemData.item?.symBlkMsg}

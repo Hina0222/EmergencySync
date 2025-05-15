@@ -58,6 +58,15 @@ function AppContent() {
 						const distanceKm = (distance / 1000).toFixed(1);
 						const estimateMin = Math.ceil(duration / 60);
 
+						if (selectedHospital && selectedHospital.hpid === hospital.hpid) {
+							webViewRef?.current?.postMessage(
+								JSON.stringify({
+									type: "DRAW_LINE_PATH",
+									routes: directionResult.routes
+								})
+							);
+						}
+
 						return {
 							...hospital,
 							distance: distanceKm,
@@ -74,8 +83,7 @@ function AppContent() {
 		};
 
 		fetchData();
-		console.log("다시 실행");
-	}, [location]);
+	}, [location, selectedHospital]);
 
 	if (!fontsLoaded) {
 		return null;
