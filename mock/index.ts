@@ -1,4 +1,6 @@
-export const ITEMS_MOCK: { id: string; content: string }[] = [
+import { HospitalDropdownItem } from "../types/hospital";
+
+export const ITEMS_MOCK: HospitalDropdownItem[] = [
 	{ id: "reperfusion", content: "재관류중재술" },
 	{ id: "hemorrhage", content: "뇌출혈수술" },
 	{ id: "aortic_emergency", content: "대동맥응급" },
@@ -16,46 +18,49 @@ export const ITEMS_MOCK: { id: string; content: string }[] = [
 	{ id: "severe_burn", content: "중증화상" }
 ];
 
-export const HOSPITALS_MOCK = [
-	{
-		id:"1", // A2400002
-		name: "단국대학교의과대학부속병원",
-		latitude: 36.84295215169462,
-		longitude: 127.17327537305154,
-		distance: 1.9, // 처리
-		phone: "041-550-6840",
-		estimate: 8, // 처리
-		nowCongestion: 8, // 처리
-		maxCongestion: 12, // 처리
-		messages: [
-			{ descriptionId: "1", description: "[안과] 정규 시간 외 하기 상병 외 진료 불가능 (외상으로 인한 각막, 공막 열상, 각막 천공, 안구 파열)", time: "2025-02-26 00:00:00" },
-			{ descriptionId: "2", description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
-		]
-	},
-	{
-		id: "i2",
-		name: "강북삼성병원",
-		latitude: 37.1,
-		longitude: 127.1,
-		distance: 2.2,
-		phone: "02-2002-8888",
-		estimate: 8,
-		nowCongestion: 8,
-		maxCongestion: 12,
-		messages: []
-	},
-	{
-		id: "i3",
-		name: "세브란스병원",
-		latitude: 36.2,
-		longitude: 127.2,
-		distance: 4.6,
-		phone: "02-2002-8888",
-		estimate: 8,
-		nowCongestion: 8,
-		maxCongestion: 12,
-		messages: [
-			{ descriptionId: "3", description: "[담낭담관질환] 담낭 수술 및 시술은 환자 수용 전 반드시 문의 바랍니다.", time: "2025-02-26 00:00:00" }
-		]
-	}
+export const COMMONS_MOCK: HospitalDropdownItem[] = [];
+
+export const SERIOUS_MOCK: HospitalDropdownItem[] = [
+	{ id: "MKioskTy1", content: "재관류중재술(심근경색)" },
+	{ id: "MKioskTy2", content: "재관류중재술(뇌경색)" },
+	{ id: "MKioskTy3", content: "뇌출혈 수술" },
+	{ id: "MKioskTy4", content: "뇌경색 수술" },
+	{ id: "MKioskTy5", content: "뇌종양 수술" },
+	{ id: "MKioskTy6", content: "뇌동맥류 수술" },
+	{ id: "MKioskTy7", content: "뇌혈관기형 수술" },
+	{ id: "MKioskTy8", content: "척추수술" },
+	{ id: "MKioskTy9", content: "외상성 뇌출혈 수술" },
+	{ id: "MKioskTy10", content: "장중첩 폐색 영유아" },
+	{ id: "MKioskTy11", content: "위장관 출혈" },
+	{ id: "MKioskTy12", content: "위장관 응급내시경" },
+	{ id: "MKioskTy13", content: "응급 복부 수술" },
+	{ id: "MKioskTy14", content: "기관지 응급내시경" },
+	{ id: "MKioskTy15", content: "저체중 출생아" },
+	{ id: "MKioskTy16", content: "신생아 호흡부전" },
+	{ id: "MKioskTy17", content: "신생아 패혈증" },
+	{ id: "MKioskTy18", content: "신생아 경련" },
+	{ id: "MKioskTy19", content: "신생아 고빌리루빈혈증" },
+	{ id: "MKioskTy20", content: "외상성 출혈" },
+	{ id: "MKioskTy21", content: "화상" },
+	{ id: "MKioskTy22", content: "중증 화상" },
+	{ id: "MKioskTy23", content: "중증 외상" },
+	{ id: "MKioskTy24", content: "중증 패혈증" },
+	{ id: "MKioskTy25", content: "중증 호흡부전" },
+	{ id: "MKioskTy26", content: "영상의학 혈관중재술(성인)" },
+	{ id: "MKioskTy27", content: "영상의학 혈관중재술(영유아)" },
+	{ id: "MKioskTy28", content: "응급실(Emergency gate keeper)" }
+];
+
+export const EQUIPMENT_MOCK: HospitalDropdownItem[] = [
+	{ id: "hvctayn", content: "CT 사용 여부" },
+	{ id: "hvmriayn", content: "MRI 사용 여부" },
+	{ id: "hvangioayn", content: "혈관촬영기 여부" },
+	{ id: "hvventiayn", content: "인공호흡기 여부" },
+	{ id: "hvventisoayn", content: "인공호흡기 (조산아용) 여부" },
+	{ id: "hvincuayn", content: "인큐베이터 여부" },
+	{ id: "hvcrrtayn", content: "CRRT 여부" },
+	{ id: "hvecmoayn", content: "ECMO 사용 여부" },
+	{ id: "hvoxyayn", content: "고압산소치료기 여부" },
+	{ id: "hvhypoayn", content: "중심체온조절유도기 여부" },
+	{ id: "hvamyn", content: "구급차 보유 여부" }
 ];

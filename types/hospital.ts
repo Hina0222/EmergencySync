@@ -28,3 +28,8 @@ export interface Hospital {
 	distance?: string;
 	estimate?: number;
 }
+
+export interface HospitalDropdownItem {
+	id: string;
+	content: string;
+}

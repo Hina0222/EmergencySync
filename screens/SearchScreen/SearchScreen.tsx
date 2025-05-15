@@ -4,14 +4,14 @@ import { styles } from "./SearchScreen.styles";
 import Typography from "../../components/ui/Typography/Typography";
 import CheckBox from "../../components/ui/CheckBox/CheckBox";
 import DropdownBox from "../../components/ui/DropdownBox/DropdownBox";
-import { ITEMS_MOCK } from "../../mock";
+import { EQUIPMENT_MOCK, ITEMS_MOCK, SERIOUS_MOCK } from "../../mock";
 import Button from "../../components/ui/Button/Button";
 import useDropdownSelection from "./hooks/useDropdownSelection";
 
 export default function SearchScreen({ navigation }: any) {
 	const common = useDropdownSelection(ITEMS_MOCK);
-	const serious = useDropdownSelection(ITEMS_MOCK);
-	const equipment = useDropdownSelection(ITEMS_MOCK);
+	const serious = useDropdownSelection(SERIOUS_MOCK);
+	const equipment = useDropdownSelection(EQUIPMENT_MOCK);
 
 	const isAnyItemSelected = common.selectedItems.length > 0 || serious.selectedItems.length > 0 || equipment.selectedItems.length > 0;
 
@@ -50,7 +50,7 @@ export default function SearchScreen({ navigation }: any) {
 					</View>
 					<DropdownBox
 						placeholder="중증응급질환"
-						items={ITEMS_MOCK}
+						items={SERIOUS_MOCK}
 						selectedItems={serious.selectedItems}
 						toggleItem={serious.toggleItem}
 						deleteItem={serious.deleteItem}
@@ -69,7 +69,7 @@ export default function SearchScreen({ navigation }: any) {
 					</View>
 					<DropdownBox
 						placeholder="장비정보"
-						items={ITEMS_MOCK}
+						items={EQUIPMENT_MOCK}
 						selectedItems={equipment.selectedItems}
 						toggleItem={equipment.toggleItem}
 						deleteItem={equipment.deleteItem}
