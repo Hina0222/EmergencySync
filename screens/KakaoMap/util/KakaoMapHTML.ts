@@ -156,7 +156,7 @@ export const KAKAO_MAP_HTML = `
 								console.log('경로 표시 완료');
 								
 								// 범위 조정 
-								map.setBounds(bounds);
+								map.setBounds(bounds,0,100,100,0);
 								
 								// 병원 마커 추가
 								if (lastPoint) {
