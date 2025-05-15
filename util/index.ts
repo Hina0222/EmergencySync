@@ -15,6 +15,17 @@ export function formatDate(dateStr: string): string {
 	return `${year}-${month}-${day} ${hour}:${minute}`;
 }
 
+export function getEstimatedArrivalTime(estimateMinutes?: number): string {
+	if (estimateMinutes === undefined) return "계산 중";
+	const now = new Date();
+	const arrival = new Date(now.getTime() + estimateMinutes * 60000);
+
+	const hours = arrival.getHours().toString().padStart(2, "0");
+	const minutes = arrival.getMinutes().toString().padStart(2, "0");
+
+	return `${hours}:${minutes} 도착 예정`;
+}
+
 const hospitalKeys: (keyof Hospital)[] = [
 	"hpid", "dutyName", "dutyTel3", "messages", "wgs84Lon", "wgs84Lat"
 ];
@@ -31,7 +42,7 @@ export const handleHospitalSelect = async (
 	hospital: Hospital,
 	location: Location.LocationObject | null,
 	setSelectedHospital: (hospital: Hospital) => void,
-	webViewRef: MutableRefObject<any> | null,
+	webViewRef: MutableRefObject<any> | null
 ) => {
 	setSelectedHospital(hospital);
 

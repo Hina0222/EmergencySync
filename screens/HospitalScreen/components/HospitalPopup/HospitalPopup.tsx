@@ -7,6 +7,7 @@ import ArrowUpRightIcon from "../../../../assets/icons/ArrowUpRightIcon.svg";
 import Description from "../Description/Description";
 import { Hospital } from "../../../../types/hospital";
 import { useEffect, useRef, useState } from "react";
+import { getEstimatedArrivalTime } from "../../../../util";
 
 interface HospitalPopupProps {
 	hospital: Hospital;
@@ -35,7 +36,9 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 		<Animated.View style={[styles.container, { width: containerWidth - 200, right: animatedRight }]}>
 			<View style={{ flexDirection: "row", justifyContent: "space-between" }}>
 				<View style={styles.title}>
-					<Typography color="neutral10" size="H3">{hospital.dutyName}</Typography>
+					<View style={{ maxWidth: "50%" }}>
+						<Typography color="neutral10" size="H3" numberOfLines={1} ellipsizeMode="tail">{hospital.dutyName}</Typography>
+					</View>
 					<Typography color="neutral50" size="T1">{hospital.distance}km</Typography>
 					<View style={styles.phone}>
 						<PhoneIcon />
@@ -52,7 +55,7 @@ export default function HospitalPopup({ hospital, onClose, isOpen }: HospitalPop
 				<View style={styles.info}>
 					<Typography color="neutral30" size="T3_semibold">예상 소요 시간</Typography>
 					<Typography color="red50" size="T3_semibold">{hospital.estimate}분</Typography>
-					<Typography color="neutral10" size="T3_semibold">13:30 도착 예정</Typography>
+					<Typography color="neutral10" size="T3_semibold">{getEstimatedArrivalTime(hospital.estimate)}</Typography>
 				</View>
 				{isShow &&
 					<View>

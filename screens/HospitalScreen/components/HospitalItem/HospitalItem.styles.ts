@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
 	},
 	title: {
 		flexDirection: "row",
+		justifyContent: "space-between",
 		gap: 12
 	},
 	phone: {

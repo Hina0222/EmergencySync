@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
 		flex: 1
 	},
 	header: {
-		paddingHorizontal: 24
+		paddingHorizontal: 24,
+		marginTop: 40
 	}
 });

@@ -4,6 +4,7 @@ import { styles } from "./HospitalItem.styles";
 import Typography from "../../../../components/ui/Typography/Typography";
 import PhoneIcon from "../../../../assets/icons/PhoneIcon.svg";
 import Description from "../Description/Description";
+import { getEstimatedArrivalTime } from "../../../../util";
 
 interface HospitalItemProps {
 	hospital: Hospital;
@@ -17,7 +18,9 @@ export default function HospitalItem({ hospital, onPress }: HospitalItemProps) {
 			style={({ pressed }) => [styles.container, pressed && styles.pressed]}
 		>
 			<View style={styles.title}>
-				<Typography color="neutral10" size="H3">{hospital.dutyName}</Typography>
+				<View style={{maxWidth:"70%"}}>
+					<Typography color="neutral10" size="H3" numberOfLines={1} ellipsizeMode="tail">{hospital.dutyName}</Typography>
+				</View>
 				<Typography color="neutral50" size="T1">{hospital.distance}km</Typography>
 			</View>
 			<View style={styles.phone}>
@@ -28,7 +31,7 @@ export default function HospitalItem({ hospital, onPress }: HospitalItemProps) {
 				<Typography color="neutral30" size="T3_semibold">예상 소요 시간</Typography>
 				<View style={{ flexDirection: "row", gap: 8 }}>
 					<Typography color="red50" size="T3_semibold">{hospital.estimate}분</Typography>
-					<Typography color="neutral10" size="T3_semibold">13:30 도착 예정</Typography>
+					<Typography color="neutral10" size="T3_semibold">{getEstimatedArrivalTime(hospital.estimate)}</Typography>
 				</View>
 			</View>
 			<View style={styles.info}>
