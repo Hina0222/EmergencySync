@@ -26,7 +26,7 @@ function AppContent() {
 	const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 	const [selectedHospital, setSelectedHospital] = useAtom(selectedHospitalAtom);
 	const [webViewRef] = useAtom(webViewRefAtom);
-	const [_, setHospitals] = useAtom(hospitalsAtom);
+	const [hospitals, setHospitals] = useAtom(hospitalsAtom);
 	const [location, setLocation] = useAtom(locationAtom);
 
 	const [fontsLoaded] = useFonts({
@@ -38,10 +38,8 @@ function AppContent() {
 			if (!location) return;
 
 			const result = await getHospitalsInfo();
-			const filteredHospitals = result.map(pickHospitalFields);
-
 			const hospitalsWithDistance = await Promise.all(
-				filteredHospitals.map(async (hospital: any) => {
+				result.map(async (hospital: any) => {
 					if (!hospital.wgs84Lon || !hospital.wgs84Lat) return hospital;
 
 					try {
