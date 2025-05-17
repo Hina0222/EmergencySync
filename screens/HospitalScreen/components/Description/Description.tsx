@@ -25,7 +25,7 @@ export default function Description({ hospital, type }: DescriptionProps) {
 			{
 				type === "list" ?
 					<View>
-						{messages.length > 0 && hospital.messages[0]?.symBlkMsg &&
+						{messages.length > 0 && messages[0]?.symBlkMsg &&
 							<Pressable
 								onPress={() => {
 									setIsDescriptionOpen(prev => !prev);
@@ -34,7 +34,7 @@ export default function Description({ hospital, type }: DescriptionProps) {
 							>
 								<View style={styles.description}>
 									<FlatList
-										data={isDescriptionOpen ? hospital.messages : hospital.messages.slice(0, 1)}
+										data={isDescriptionOpen ? messages : messages.slice(0, 1)}
 										keyExtractor={(_, index) => index.toString()}
 										ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
 										renderItem={(itemData) => (
@@ -61,12 +61,12 @@ export default function Description({ hospital, type }: DescriptionProps) {
 					:
 					<View>
 						{
-							messages.length > 0 && hospital.messages[0]?.symBlkMsg &&
-							<View style={[styles.container, { flexDirection: "column", marginTop: 20 }, hospital.messages.length === 1 ? { marginBottom: 14 } : {}]}>
+							messages.length > 0 && messages[0]?.symBlkMsg &&
+							<View style={[styles.container, { flexDirection: "column", marginTop: 20 }, messages.length === 1 ? { marginBottom: 14 } : {}]}>
 								<View style={styles.description}
 											onLayout={(event) => setContainerWidth(event.nativeEvent.layout.width)}>
 									<FlatList
-										data={hospital.messages}
+										data={messages}
 										keyExtractor={(_, index) => index.toString()}
 										ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
 										renderItem={(itemData) => (
@@ -90,7 +90,7 @@ export default function Description({ hospital, type }: DescriptionProps) {
 									/>
 								</View>
 								<Pagination
-									dotsLength={hospital.messages.length}
+									dotsLength={messages.length}
 									activeDotIndex={activeIndex}
 									containerStyle={{ paddingTop: 8, paddingBottom: 0 }}
 									dotStyle={{ width: 6, height: 6, borderRadius: 5, backgroundColor: theme.primary50 }}

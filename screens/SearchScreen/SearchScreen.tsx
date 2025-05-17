@@ -21,7 +21,6 @@ export default function SearchScreen({ navigation }: any) {
 	const isAnyItemSelected = common.selectedItems.length > 0 || serious.selectedItems.length > 0 || equipment.selectedItems.length > 0;
 
 	const selectedIds = [
-		...common.selectedItems,
 		...serious.selectedItems,
 		...equipment.selectedItems,
 	];
@@ -90,12 +89,18 @@ export default function SearchScreen({ navigation }: any) {
 			<View style={{ paddingTop: 32 }}>
 				<Button
 					onPress={() => {
-						const filtered = hospitals.filter(hospital => {
-							return selectedIds.some(id => {
-								const hospitalAny = hospital as any;
-								return hospitalAny[id] === true;
+						let filtered;
+						
+						if (common.selectedItems.length > 0) {
+							filtered = hospitals;
+						} else {
+							filtered = hospitals.filter(hospital => {
+								return selectedIds.some(id => {
+									const hospitalAny = hospital as any;
+									return hospitalAny[id] === true;
+								});
 							});
-						});
+						}
 
 						setFilteredHospitals(filtered);
 
