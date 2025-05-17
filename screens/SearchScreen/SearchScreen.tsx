@@ -4,16 +4,27 @@ import { styles } from "./SearchScreen.styles";
 import Typography from "../../components/ui/Typography/Typography";
 import CheckBox from "../../components/ui/CheckBox/CheckBox";
 import DropdownBox from "../../components/ui/DropdownBox/DropdownBox";
-import { EQUIPMENT_MOCK, ITEMS_MOCK, SERIOUS_MOCK } from "../../mock";
+import { COMMONS_MOCK, EQUIPMENT_MOCK, ITEMS_MOCK, SERIOUS_MOCK } from "../../mock";
 import Button from "../../components/ui/Button/Button";
 import useDropdownSelection from "./hooks/useDropdownSelection";
+import { useAtom } from "jotai/index";
+import { filteredHospitalsAtom, hospitalsAtom } from "../../store/atoms";
+import { Hospital } from "../../types/hospital";
 
 export default function SearchScreen({ navigation }: any) {
-	const common = useDropdownSelection(ITEMS_MOCK);
+	const common = useDropdownSelection(COMMONS_MOCK);
 	const serious = useDropdownSelection(SERIOUS_MOCK);
 	const equipment = useDropdownSelection(EQUIPMENT_MOCK);
+	const [hospitals] = useAtom(hospitalsAtom);
+	const [, setFilteredHospitals] = useAtom(filteredHospitalsAtom);
 
 	const isAnyItemSelected = common.selectedItems.length > 0 || serious.selectedItems.length > 0 || equipment.selectedItems.length > 0;
+
+	const selectedIds = [
+		...common.selectedItems,
+		...serious.selectedItems,
+		...equipment.selectedItems,
+	];
 
 	return (
 		<View style={styles.container}>
@@ -31,7 +42,7 @@ export default function SearchScreen({ navigation }: any) {
 					</View>
 					<DropdownBox
 						placeholder="일반질환"
-						items={ITEMS_MOCK}
+						items={COMMONS_MOCK}
 						selectedItems={common.selectedItems}
 						toggleItem={common.toggleItem}
 						deleteItem={common.deleteItem}
@@ -79,6 +90,15 @@ export default function SearchScreen({ navigation }: any) {
 			<View style={{ paddingTop: 32 }}>
 				<Button
 					onPress={() => {
+						const filtered = hospitals.filter(hospital => {
+							return selectedIds.some(id => {
+								const hospitalAny = hospital as any;
+								return hospitalAny[id] === true;
+							});
+						});
+
+						setFilteredHospitals(filtered);
+
 						navigation.navigate("HospitalScreen");
 					}}
 					isActive={isAnyItemSelected}

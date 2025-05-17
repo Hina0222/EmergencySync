@@ -11,3 +11,5 @@ export const selectedHospitalAtom = atom<Hospital | null>(null);
 export const webViewRefAtom = atom<RefObject<WebView> | null>(null);
 
 export const hospitalsAtom = atom<Hospital[]>([]);
+
+export const filteredHospitalsAtom = atom<Hospital[]>([]);

@@ -18,7 +18,17 @@ export const ITEMS_MOCK: HospitalDropdownItem[] = [
 	{ id: "severe_burn", content: "중증화상" }
 ];
 
-export const COMMONS_MOCK: HospitalDropdownItem[] = [];
+export const COMMONS_MOCK: HospitalDropdownItem[] = [
+	{ id: "internal-medicine", content: "내과" },
+	{ id: "surgery", content: "외과" },
+	{ id: "obstetrics-gynecology", content: "산부인과" },
+	{ id: "pediatrics", content: "소아청소년과" },
+	{ id: "orthopedics", content: "정형외과" },
+	{ id: "neurology", content: "신경과" },
+	{ id: "dermatology", content: "피부과" },
+	{ id: "ophthalmology", content: "안과" },
+	{ id: "otorhinolaryngology", content: "이비인후과" },
+];
 
 export const SERIOUS_MOCK: HospitalDropdownItem[] = [
 	{ id: "MKioskTy1", content: "재관류중재술(심근경색)" },

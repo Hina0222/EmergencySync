@@ -7,5 +7,9 @@ export const styles = StyleSheet.create({
 	header: {
 		paddingHorizontal: 24,
 		marginTop: 40
+	},
+	notice: {
+		marginTop: 50,
+		marginHorizontal: "auto"
 	}
 });
